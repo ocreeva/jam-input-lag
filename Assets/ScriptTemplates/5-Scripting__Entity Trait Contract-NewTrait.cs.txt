@@ -1,0 +1,8 @@
+using Moyba.Contracts;
+
+namespace #NAMESPACE#
+{
+    public class #SCRIPTNAME# : ATrait<#ENTITY#, #FEATURE#Manager>, I#SCRIPTNAME#
+    {
+    }
+}
