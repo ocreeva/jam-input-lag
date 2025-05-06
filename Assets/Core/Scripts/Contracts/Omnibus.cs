@@ -1,3 +1,4 @@
+using Moyba.Input;
 using UnityEngine;
 
 namespace Moyba.Contracts
@@ -6,6 +7,10 @@ namespace Moyba.Contracts
     public class Omnibus : MonoBehaviour
     {
         private static Omnibus _Instance;
+
+        [SerializeField, Require(typeof(IInputManager))] private Object _input;
+
+        public static IInputManager Input { get; private set; }
 
         private void Awake()
         {
@@ -17,7 +22,16 @@ namespace Moyba.Contracts
             {
                 _Instance = this;
                 Object.DontDestroyOnLoad(this.gameObject);
+
+                Omnibus.Input = (IInputManager)_input;
             }
         }
+
+#if UNITY_EDITOR
+        private void Reset()
+        {
+            _input = _ContractUtility.LoadOmnibusAsset<IInputManager>() as Object;
+        }
+#endif
     }
 }
