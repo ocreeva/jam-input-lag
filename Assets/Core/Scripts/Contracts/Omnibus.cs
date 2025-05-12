@@ -1,3 +1,4 @@
+using Moyba.Avatar;
 using Moyba.Input;
 using UnityEngine;
 
@@ -8,8 +9,10 @@ namespace Moyba.Contracts
     {
         private static Omnibus _Instance;
 
+        [SerializeField, Require(typeof(IAvatarManager))] private Object _avatar;
         [SerializeField, Require(typeof(IInputManager))] private Object _input;
 
+        public static IAvatarManager Avatar { get; private set; }
         public static IInputManager Input { get; private set; }
 
         private void Awake()
@@ -23,6 +26,7 @@ namespace Moyba.Contracts
                 _Instance = this;
                 Object.DontDestroyOnLoad(this.gameObject);
 
+                Omnibus.Avatar = (IAvatarManager)_avatar;
                 Omnibus.Input = (IInputManager)_input;
             }
         }
@@ -30,6 +34,7 @@ namespace Moyba.Contracts
 #if UNITY_EDITOR
         private void Reset()
         {
+            _avatar = _ContractUtility.LoadOmnibusAsset<IAvatarManager>() as Object;
             _input = _ContractUtility.LoadOmnibusAsset<IInputManager>() as Object;
         }
 #endif

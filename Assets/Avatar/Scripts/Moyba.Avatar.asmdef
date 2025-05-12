@@ -1,0 +1,7 @@
+{
+    "name": "Moyba.Avatar",
+    "rootNamespace": "Moyba.Avatar",
+    "references": [
+        "GUID:580aeb5a1b69ac34ea5bd96646592dc0"
+    ]
+}
