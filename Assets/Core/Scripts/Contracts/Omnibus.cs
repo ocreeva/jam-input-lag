@@ -1,5 +1,6 @@
 using Moyba.Avatar;
 using Moyba.Input;
+using Moyba.SFX;
 using UnityEngine;
 
 namespace Moyba.Contracts
@@ -11,9 +12,11 @@ namespace Moyba.Contracts
 
         [SerializeField, Require(typeof(IAvatarManager))] private Object _avatar;
         [SerializeField, Require(typeof(IInputManager))] private Object _input;
+        [SerializeField, Require(typeof(ISFXManager))] private Object _sound;
 
         public static IAvatarManager Avatar { get; private set; }
         public static IInputManager Input { get; private set; }
+        public static ISFXManager Sound { get; private set; }
 
         private void Awake()
         {
@@ -28,6 +31,7 @@ namespace Moyba.Contracts
 
                 Omnibus.Avatar = (IAvatarManager)_avatar;
                 Omnibus.Input = (IInputManager)_input;
+                Omnibus.Sound = (ISFXManager)_sound;
             }
         }
 
@@ -36,6 +40,7 @@ namespace Moyba.Contracts
         {
             _avatar = _ContractUtility.LoadOmnibusAsset<IAvatarManager>() as Object;
             _input = _ContractUtility.LoadOmnibusAsset<IInputManager>() as Object;
+            _sound = _ContractUtility.LoadOmnibusAsset<ISFXManager>() as Object;
         }
 #endif
     }
