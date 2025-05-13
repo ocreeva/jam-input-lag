@@ -29,9 +29,7 @@ namespace Moyba.Avatar
         private void Awake()
         {
             this._Assert(ReferenceEquals(_manager.Kinematics, _Stub), "is replacing a non-stub instance.");
-
             _manager.Kinematics = this;
-
             _Stub.TransferControlTo(this);
 
             _animator = this.GetComponent<Animator>();
@@ -68,9 +66,7 @@ namespace Moyba.Avatar
         private void OnDestroy()
         {
             this._Assert(ReferenceEquals(_manager.Kinematics, this), "is stubbing a different instance.");
-
             _manager.Kinematics = _Stub;
-
             _Stub.TransferControlFrom(this);
         }
 

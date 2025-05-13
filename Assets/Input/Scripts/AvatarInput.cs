@@ -42,9 +42,7 @@ namespace Moyba.Input
         private void Awake()
         {
             this._Assert(ReferenceEquals(_manager.Avatar, _Stub), "is replacing a non-stub instance.");
-
             _manager.Avatar = this;
-
             _Stub.TransferControlTo(this);
         }
 
@@ -60,9 +58,7 @@ namespace Moyba.Input
         private void OnDestroy()
         {
             this._Assert(ReferenceEquals(_manager.Avatar, this), "is stubbing a different instance.");
-
             _manager.Avatar = _Stub;
-
             _Stub.TransferControlFrom(this);
         }
 
