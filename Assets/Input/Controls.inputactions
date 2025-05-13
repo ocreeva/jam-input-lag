@@ -136,6 +136,34 @@
             ]
         },
         {
+            "name": "Debug",
+            "id": "611d40da-79c1-4dc8-9939-522df2919dac",
+            "actions": [
+                {
+                    "name": "Signal",
+                    "type": "Button",
+                    "id": "c561ab61-6839-4ac7-a95b-e53be6e73e38",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a6fc892b-5df3-47c6-a2fc-cd4392b655f0",
+                    "path": "<Keyboard>/semicolon",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Signal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "UI",
             "id": "05ca016f-e26f-471b-909d-615b432c6dd8",
             "actions": [
