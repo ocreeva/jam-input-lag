@@ -619,8 +619,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _manager: {fileID: 11400000, guid: 86411f77b0b7b594193572d2428d1ed9, type: 2}
-  _minSpeedStep: 1
-  _maxSpeedStep: 3
+  _acceleration: 1
+  _deceleration: 1
+  _minSpeed: -3
+  _maxSpeed: 10
 --- !u!1001 &4786379205697025071
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Moyba.Contracts;
 using UnityEngine;
 
@@ -15,12 +16,15 @@ namespace Moyba.Avatar
         internal static IAvatarKinematics Stub => _Stub;
 
         [Header("Configuration")]
-        [SerializeField] private int _minSpeedStep;
-        [SerializeField] private int _maxSpeedStep;
+        [SerializeField, Range(0f, 10f)] private float _acceleration = 1f;
+        [SerializeField, Range(0f, 10f)] private float _deceleration = 1f;
+        [SerializeField, Range(-10f, 0f)] private float _minSpeed = 1f;
+        [SerializeField, Range(0f, 10f)] private float _maxSpeed = 3f;
 
         [NonSerialized] private Animator _animator;
 
-        [NonSerialized] private int _speed;
+        [NonSerialized] private float _speed;
+        [NonSerialized] private Coroutine _speedCoroutine;
 
         private void Awake()
         {
@@ -35,11 +39,30 @@ namespace Moyba.Avatar
             this.HandleSpeedChanged(0);
         }
 
-        private void HandleSpeedChanged(int delta)
+        private IEnumerator Coroutine_ApplySpeed(int input)
         {
-            _speed = Mathf.Clamp(_speed + delta, _minSpeedStep, _maxSpeedStep);
+            var rate = input > 0 ? _acceleration * input : _deceleration * input;
+            do
+            {
+                var delta = rate * Time.deltaTime;
+                _speed = Mathf.Clamp(_speed + delta, _minSpeed, _maxSpeed);
 
-            _animator.SetFloat(_AvatarSpeed, 1f * _speed / _maxSpeedStep);
+                _animator.SetFloat(_AvatarSpeed, _speed / _maxSpeed);
+
+                yield return null;
+            }
+            while (_speed < _maxSpeed && _speed > _minSpeed);
+
+            _speedCoroutine = null;
+        }
+
+        private void HandleSpeedChanged(int input)
+        {
+            if (_speedCoroutine != null) this.StopCoroutine(_speedCoroutine);
+
+            if (input == 0) return;
+
+            _speedCoroutine = this.StartCoroutine(Coroutine_ApplySpeed(input));
         }
 
         private void OnDestroy()
