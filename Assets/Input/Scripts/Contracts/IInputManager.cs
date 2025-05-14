@@ -4,5 +4,6 @@ namespace Moyba.Input
     {
         IAvatarInput Avatar { get; }
         IDebugInput Debug { get; }
+        IGameInput Game { get; }
     }
 }

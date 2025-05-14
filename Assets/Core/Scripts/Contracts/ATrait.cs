@@ -40,6 +40,10 @@ namespace Moyba.Contracts
             }
 
             protected virtual void TransferEvents(TTrait trait) { }
+
+            [System.Diagnostics.Conditional("UNITY_ASSERTIONS")]
+            protected void _SetFail(string paramName)
+            => Debug.LogWarning($"{this.GetType().Name} is settings a value for '{paramName}'.");
         }
     }
 

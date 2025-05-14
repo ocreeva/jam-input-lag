@@ -1,9 +1,10 @@
+using Moyba.Contracts;
 using UnityEngine;
 
 namespace #NAMESPACE#
 {
     [CreateAssetMenu(fileName = "Omnibus.#FEATURE#.asset", menuName = "Omnibus/#FEATURE#")]
-    public class #SCRIPTNAME# : ScriptableObject, I#SCRIPTNAME#
+    public class #SCRIPTNAME# : AManager, I#SCRIPTNAME#
     {
     }
 }
