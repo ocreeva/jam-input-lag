@@ -5,7 +5,6 @@ using UnityEngine.Audio;
 
 namespace Moyba.SFX
 {
-    [RequireComponent(typeof(AudioSource))]
     public class SFXMusic : ATrait<SFXManager>, ISFXMusic
     {
         private const string _IsMuted = "SFX_Music_IsMuted";
@@ -15,8 +14,6 @@ namespace Moyba.SFX
         [Header("Components")]
         [SerializeField] private AudioMixerSnapshot _audioSnapshotMuted;
         [SerializeField] private AudioMixerSnapshot _audioSnapshotUnmuted;
-
-        [NonSerialized] private AudioSource _audioSource;
 
         [NonSerialized] private bool _isMuted = true;
 
@@ -46,8 +43,6 @@ namespace Moyba.SFX
             this._Assert(ReferenceEquals(_manager.Music, _Stub), "is replacing a non-stub instance.");
             _manager.Music = this;
             _Stub.TransferControlTo(this);
-
-            _audioSource = this.GetComponent<AudioSource>();
         }
 
         private void OnDestroy()
