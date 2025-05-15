@@ -18,7 +18,7 @@ AudioMixerController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Music
+  m_Name: Audio Mixer - Music
   m_OutputGroup: {fileID: 3575508066725029025, guid: ae6837d9be478454a8e677f8ce0d7146, type: 2}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:

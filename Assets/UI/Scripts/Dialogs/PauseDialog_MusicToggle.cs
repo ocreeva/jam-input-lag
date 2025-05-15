@@ -1,37 +1,10 @@
-using System;
 using Moyba.Contracts;
-using UnityEngine;
-using UnityEngine.UI;
+using Moyba.SFX;
 
 namespace Moyba.UI.Dialogs
 {
-    [RequireComponent(typeof(Toggle))]
-    public class PauseDialog_MusicToggle : MonoBehaviour
+    public class PauseDialog_MusicToggle : PauseDialog_AMuteToggle
     {
-        [NonSerialized] private Toggle _toggle;
-
-        private void Awake()
-        {
-            _toggle = this.GetComponent<Toggle>();
-        }
-
-        private void HandleMusicIsMuted()
-        => _toggle.isOn = false;
-        private void HandleMusicIsUnmuted()
-        => _toggle.isOn = true;
-
-        private void OnDisable()
-        {
-            Omnibus.SFX.Music.OnMuted -= this.HandleMusicIsMuted;
-            Omnibus.SFX.Music.OnUnmuted -= this.HandleMusicIsUnmuted;
-        }
-
-        private void OnEnable()
-        {
-            Omnibus.SFX.Music.OnMuted += this.HandleMusicIsMuted;
-            Omnibus.SFX.Music.OnUnmuted += this.HandleMusicIsUnmuted;
-
-            _toggle.isOn = !Omnibus.SFX.Music.IsMuted;
-        }
+        protected override IMuteable Muteable => Omnibus.SFX.Music;
     }
 }

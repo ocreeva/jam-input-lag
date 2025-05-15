@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8422188801695480634}
   - component: {fileID: 1076374075376645688}
+  - component: {fileID: 3471755077126485491}
+  - component: {fileID: 1587396768223863412}
   m_Layer: 0
   m_Name: SFX
   m_TagString: Untagged
@@ -48,6 +50,38 @@ MonoBehaviour:
   _manager: {fileID: 11400000, guid: 5cd5292a2bf92a34fab5368caf337cca, type: 2}
   _audioSnapshotMuted: {fileID: -3681011595085708868, guid: 685996f5534741848ad4b1a0d4f5a7c1, type: 2}
   _audioSnapshotUnmuted: {fileID: 24500006, guid: 685996f5534741848ad4b1a0d4f5a7c1, type: 2}
+--- !u!114 &3471755077126485491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476215960942156430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e02246456f647a44822bd525e5cebf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 11400000, guid: 5cd5292a2bf92a34fab5368caf337cca, type: 2}
+  _audioSnapshotMuted: {fileID: 24500006, guid: b62d6ad0f56c3924d8cf3ea41291ce31, type: 2}
+  _audioSnapshotUnmuted: {fileID: -347871280160044959, guid: b62d6ad0f56c3924d8cf3ea41291ce31, type: 2}
+--- !u!114 &1587396768223863412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476215960942156430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b733b1c4f92c5894caa9e7be78554d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 11400000, guid: 5cd5292a2bf92a34fab5368caf337cca, type: 2}
+  _audioMixer: {fileID: 24100000, guid: ae6837d9be478454a8e677f8ce0d7146, type: 2}
+  _default: 0.75
+  _minDb: -30
+  _maxDb: 10
 --- !u!1 &8380313106927371827
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,11 @@
+using Moyba.Contracts;
+
 namespace Moyba.SFX
 {
     public interface ISFXManager
     {
-        ISFXMusic Music { get; }
+        IMuteable Music { get; }
+        IMuteable Sound { get; }
+        IValueTrait<float> Volume { get; }
     }
 }

@@ -1,6 +1,7 @@
 namespace Moyba.SFX
 {
-    public interface ISFXMusic
+    // NOTE: muteable, not mutable; i.e. able to be muted
+    public interface IMuteable
     {
         event SimpleEventHandler OnMuted;
         event SimpleEventHandler OnUnmuted;
