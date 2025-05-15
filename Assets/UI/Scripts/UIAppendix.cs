@@ -29,6 +29,8 @@ namespace Moyba.UI
 
             _dialogBackground.SetActive(_isPaused);
             _pauseDialog.SetActive(_isPaused);
+
+            Time.timeScale = _isPaused ? 0.0f : 1.0f;
         }
 
         private void OnDisable()
