@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 
 namespace Moyba.SFX
 {
-    public class SFXVolume : AValueTrait<SFXManager, float>, IValueTrait<float>
+    public class SFXVolume : AValueTrait<SFXManager, float>, IValue<float>
     {
         private static string _VolumeSetting = $"{nameof(SFXVolume)}_Value";
 
@@ -18,7 +18,7 @@ namespace Moyba.SFX
         [SerializeField, Range(-80, 20)] private float _minDb = -30f;
         [SerializeField, Range(-80, 20)] private float _maxDb = 10f;
 
-        internal static IValueTrait<float> Stub => _Stub;
+        internal static IValue<float> Stub => _Stub;
 
         private void Awake()
         {
@@ -41,25 +41,25 @@ namespace Moyba.SFX
 
         private void OnDisable()
         {
-            this.OnValueChanged -= this.HandleValueChanged_Persistence;
+            this.OnChanged -= this.HandleValueChanged_Persistence;
 
             this.Value = default;
 
-            this.OnValueChanged -= this.HandleValueChanged;
+            this.OnChanged -= this.HandleValueChanged;
         }
 
         private void OnEnable()
         {
-            this.OnValueChanged += this.HandleValueChanged;
+            this.OnChanged += this.HandleValueChanged;
 
             this.Value = PlayerPrefs.GetFloat(_VolumeSetting, _default);
 
-            this.OnValueChanged += this.HandleValueChanged_Persistence;
+            this.OnChanged += this.HandleValueChanged_Persistence;
         }
 
         private void Start()
         => this.HandleValueChanged(this.Value);
 
-        private class _StubSFXVolume : AValueTraitStub<SFXVolume>, IValueTrait<float> { }
+        private class _StubSFXVolume : AValueTraitStub<SFXVolume>, IValue<float> { }
     }
 }

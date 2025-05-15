@@ -7,17 +7,19 @@ namespace Moyba.Contracts
         protected void _Set<T>(
             T value,
             ref T field,
-            ValueEventHandler<T> changing = null,
-            ValueEventHandler<T> changed = null,
-            bool includeIdempotent = false)
-        => _ContractUtility.Set(value, ref field, changing, changed, includeIdempotent);
+            bool includeIdempotent = false,
+            ValueEventHandler<T> onChanging = null,
+            ValueEventHandler<T> onChanged = null)
+        => _ContractUtility.Set(value, ref field, includeIdempotent, onChanging, onChanged);
 
         protected void _Set(
             bool value,
             ref bool field,
+            bool includeIdempotent = false,
+            ValueEventHandler<bool> onChanging = null,
+            ValueEventHandler<bool> onChanged = null,
             SimpleEventHandler onFalse = null,
-            SimpleEventHandler onTrue = null,
-            bool includeIdempotent = false)
-        => _ContractUtility.Set(value, ref field, onFalse, onTrue, includeIdempotent);
+            SimpleEventHandler onTrue = null)
+        => _ContractUtility.Set(value, ref field, includeIdempotent, onChanging, onChanged, onFalse, onTrue);
     }
 }

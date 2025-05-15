@@ -8,6 +8,6 @@ namespace Moyba.SFX
     {
         public IMuteable Music { get; internal set; } = SFXMusic.Stub;
         public IMuteable Sound { get; internal set; } = SFXSound.Stub;
-        public IValueTrait<float> Volume { get; internal set; } = SFXVolume.Stub;
+        public IValue<float> Volume { get; internal set; } = SFXVolume.Stub;
     }
 }

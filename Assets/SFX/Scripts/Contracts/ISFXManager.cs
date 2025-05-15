@@ -6,6 +6,6 @@ namespace Moyba.SFX
     {
         IMuteable Music { get; }
         IMuteable Sound { get; }
-        IValueTrait<float> Volume { get; }
+        IValue<float> Volume { get; }
     }
 }

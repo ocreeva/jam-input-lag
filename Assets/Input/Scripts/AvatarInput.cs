@@ -20,19 +20,19 @@ namespace Moyba.Input
         public int Speed
         {
             get => _speed;
-            set => _Set(value, ref _speed, changed: OnSpeedChanged);
+            set => _Set(value, ref _speed, onChanged: OnSpeedChanged);
         }
 
         public int Strafe
         {
             get => _strafe;
-            set => _Set(value, ref _strafe, changed: OnStrafeChanged);
+            set => _Set(value, ref _strafe, onChanged: OnStrafeChanged);
         }
 
         public int Turn
         {
             get => _turn;
-            set => _Set(value, ref _turn, changed: OnTurnChanged);
+            set => _Set(value, ref _turn, onChanged: OnTurnChanged);
         }
 
         public event ValueEventHandler<int> OnSpeedChanged;

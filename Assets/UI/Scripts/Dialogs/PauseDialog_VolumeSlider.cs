@@ -20,12 +20,12 @@ namespace Moyba.UI.Dialogs
 
         void OnDisable()
         {
-            Omnibus.SFX.Volume.OnValueChanged -= this.HandleVolumeChanged;
+            Omnibus.SFX.Volume.OnChanged -= this.HandleVolumeChanged;
         }
 
         void OnEnable()
         {
-            Omnibus.SFX.Volume.OnValueChanged += this.HandleVolumeChanged;
+            Omnibus.SFX.Volume.OnChanged += this.HandleVolumeChanged;
 
             _slider.value = Omnibus.SFX.Volume.Value;
         }

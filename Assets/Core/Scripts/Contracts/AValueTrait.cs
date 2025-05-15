@@ -3,25 +3,25 @@ using UnityEngine;
 
 namespace Moyba.Contracts
 {
-    public abstract class AValueTrait<TManager, TValue> : ATrait<TManager>, IValueTrait<TValue>
+    public abstract class AValueTrait<TManager, TValue> : ATrait<TManager>, IValue<TValue>
         where TManager : ScriptableObject
     {
         [NonSerialized] private TValue _value;
 
-        public event ValueEventHandler<TValue> OnValueChanged;
-        public event ValueEventHandler<TValue> OnValueChanging;
+        public event ValueEventHandler<TValue> OnChanged;
+        public event ValueEventHandler<TValue> OnChanging;
 
         public TValue Value
         {
             get => _value;
-            set => _Set(value, ref _value, changing: this.OnValueChanging, changed: this.OnValueChanged);
+            set => _Set(value, ref _value, onChanged: this.OnChanged, onChanging: this.OnChanging);
         }
 
-        protected abstract class AValueTraitStub<TTrait> : ATraitStub<TTrait>
+        protected abstract class AValueTraitStub<TTrait> : ATraitStub<TTrait>, IValue<TValue>
             where TTrait : AValueTrait<TManager, TValue>
         {
-            public event ValueEventHandler<TValue> OnValueChanged;
-            public event ValueEventHandler<TValue> OnValueChanging;
+            public event ValueEventHandler<TValue> OnChanged;
+            public event ValueEventHandler<TValue> OnChanging;
 
             public TValue Value
             {
@@ -31,25 +31,25 @@ namespace Moyba.Contracts
 
             protected override void TransferEvents(TTrait trait)
             {
-                (this.OnValueChanged, trait.OnValueChanged) = (trait.OnValueChanged, this.OnValueChanged);
-                (this.OnValueChanging, trait.OnValueChanging) = (trait.OnValueChanging, this.OnValueChanging);
+                (this.OnChanged, trait.OnChanged) = (trait.OnChanged, this.OnChanged);
+                (this.OnChanging, trait.OnChanging) = (trait.OnChanging, this.OnChanging);
             }
         }
     }
 
-    public abstract class AValueTrait<TEntity, TManager, TValue> : ATrait<TEntity, TManager>
+    public abstract class AValueTrait<TEntity, TManager, TValue> : ATrait<TEntity, TManager>, IValue<TValue>
         where TEntity : AnEntity<TManager>
         where TManager : ScriptableObject
     {
         private TValue _value;
 
-        public event ValueEventHandler<TValue> OnValueChanged;
-        public event ValueEventHandler<TValue> OnValueChanging;
+        public event ValueEventHandler<TValue> OnChanged;
+        public event ValueEventHandler<TValue> OnChanging;
 
         public TValue Value
         {
             get => _value;
-            set => _Set(value, ref _value, changing: this.OnValueChanging, changed: this.OnValueChanged);
+            set => _Set(value, ref _value, onChanged: this.OnChanged, onChanging: this.OnChanging);
         }
     }
 }

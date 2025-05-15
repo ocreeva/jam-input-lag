@@ -27,29 +27,29 @@ namespace Moyba.Contracts
         public static void Set<T>(
             T value,
             ref T field,
-            ValueEventHandler<T> changing,
-            ValueEventHandler<T> changed,
-            bool includeIdempotent)
+            bool includeIdempotent,
+            ValueEventHandler<T> onChanging,
+            ValueEventHandler<T> onChanged)
         {
             if (!includeIdempotent && EqualityComparer<T>.Default.Equals(value, field)) return;
 
-            changing?.Invoke(field);
+            onChanging?.Invoke(field);
 
             field = value;
 
-            changed?.Invoke(field);
+            onChanged?.Invoke(field);
         }
 
         public static void Set(
             bool value,
             ref bool field,
+            bool includeIdempotent,
+            ValueEventHandler<bool> onChanging,
+            ValueEventHandler<bool> onChanged,
             SimpleEventHandler onFalse,
-            SimpleEventHandler onTrue,
-            bool includeIdempotent)
+            SimpleEventHandler onTrue)
         {
-            if (!includeIdempotent && value == field) return;
-
-            field = value;
+            _ContractUtility.Set(value, ref field, includeIdempotent, onChanging, onChanged);
 
             (value ? onTrue : onFalse)?.Invoke();
         }
