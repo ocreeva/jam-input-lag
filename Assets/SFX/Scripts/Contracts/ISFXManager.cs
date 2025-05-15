@@ -4,8 +4,8 @@ namespace Moyba.SFX
 {
     public interface ISFXManager
     {
-        IMuteable Music { get; }
-        IMuteable Sound { get; }
+        IBoolValue MusicIsMuted { get; }
+        IBoolValue SoundIsMuted { get; }
         IValue<float> Volume { get; }
     }
 }

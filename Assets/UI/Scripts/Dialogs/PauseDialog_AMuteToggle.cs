@@ -1,4 +1,5 @@
 using System;
+using Moyba.Contracts;
 using Moyba.SFX;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,30 +11,26 @@ namespace Moyba.UI.Dialogs
     {
         [NonSerialized] private Toggle _toggle;
 
-        protected abstract IMuteable Muteable { get; }
+        protected abstract IBoolValue ChannelIsMuted { get; }
 
         private void Awake()
         {
             _toggle = this.GetComponent<Toggle>();
         }
 
-        private void HandleMusicIsMuted()
-        => _toggle.isOn = false;
-        private void HandleMusicIsUnmuted()
-        => _toggle.isOn = true;
+        private void HandleIsMutedValueChanged(bool value)
+        => _toggle.isOn = !value;
 
         private void OnDisable()
         {
-            this.Muteable.OnMuted -= this.HandleMusicIsMuted;
-            this.Muteable.OnUnmuted -= this.HandleMusicIsUnmuted;
+            this.ChannelIsMuted.OnChanged -= this.HandleIsMutedValueChanged;
         }
 
         private void OnEnable()
         {
-            this.Muteable.OnMuted += this.HandleMusicIsMuted;
-            this.Muteable.OnUnmuted += this.HandleMusicIsUnmuted;
+            this.ChannelIsMuted.OnChanged += this.HandleIsMutedValueChanged;
 
-            _toggle.isOn = !this.Muteable.IsMuted;
+            _toggle.isOn = !this.ChannelIsMuted.Value;
         }
     }
 }

@@ -6,8 +6,8 @@ namespace Moyba.SFX
     [CreateAssetMenu(fileName = "Omnibus.SFX.asset", menuName = "Omnibus/SFX")]
     public class SFXManager : AManager, ISFXManager
     {
-        public IMuteable Music { get; internal set; } = SFXMusic.Stub;
-        public IMuteable Sound { get; internal set; } = SFXSound.Stub;
+        public IBoolValue MusicIsMuted { get; internal set; } = SFX.MusicIsMuted.Stub;
+        public IBoolValue SoundIsMuted { get; internal set; } = SFX.SoundIsMuted.Stub;
         public IValue<float> Volume { get; internal set; } = SFXVolume.Stub;
     }
 }

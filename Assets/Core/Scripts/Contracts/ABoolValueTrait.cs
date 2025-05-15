@@ -23,7 +23,7 @@ namespace Moyba.Contracts
                 onTrue: this.OnTrue);
         }
 
-        protected abstract class AValueTraitStub<TTrait> : ATraitStub<TTrait>, IBoolValue
+        protected abstract class ABoolValueTraitStub<TTrait> : ATraitStub<TTrait>, IBoolValue
             where TTrait : ABoolValueTrait<TManager>
         {
             public event ValueEventHandler<bool> OnChanged;
