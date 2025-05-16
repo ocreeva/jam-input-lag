@@ -1,0 +1,7 @@
+{
+    "name": "Moyba.Terrain",
+    "rootNamespace": "Moyba.Terrain",
+    "references": [
+        "GUID:580aeb5a1b69ac34ea5bd96646592dc0"
+    ]
+}

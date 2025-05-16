@@ -9,6 +9,11 @@ namespace Moyba
 
         public CoordinateOffset(int x, int y) => (this.x, this.y) = (x, y);
 
+        public static CoordinateOffset Forward => new CoordinateOffset(0, 1);
+        public static CoordinateOffset Backward => new CoordinateOffset(0, -1);
+        public static CoordinateOffset Right => new CoordinateOffset(1, 0);
+        public static CoordinateOffset Left => new CoordinateOffset(-1, 0);
+
         public CoordinateOffset right => new CoordinateOffset(this.y, -this.x);
 
         public static bool operator ==(CoordinateOffset o1, CoordinateOffset o2)
