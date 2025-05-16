@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using Moyba.Contracts;
 using UnityEngine;
 
 namespace Moyba.Avatar
 {
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody))]
     public class AvatarKinematics : ATrait<AvatarManager>, IAvatarKinematics
     {
         private const string _AvatarSpeedLiteral = "Speed";
@@ -15,16 +14,21 @@ namespace Moyba.Avatar
 
         internal static IAvatarKinematics Stub => _Stub;
 
-        [Header("Configuration")]
-        [SerializeField, Range(0f, 10f)] private float _acceleration = 1f;
-        [SerializeField, Range(0f, 10f)] private float _deceleration = 1f;
-        [SerializeField, Range(-10f, 0f)] private float _minSpeed = 1f;
-        [SerializeField, Range(0f, 10f)] private float _maxSpeed = 3f;
+        [Header("Components")]
+        [SerializeField] private Animator _animator;
 
-        [NonSerialized] private Animator _animator;
+        [Header("Configuration")]
+        [SerializeField, Range(0f, 10f)] private float _positiveAcceleration = 2.5f;
+        [SerializeField, Range(0f, 10f)] private float _negativeAcceleration = 0.5f;
+        [SerializeField, Range(0f, 10f)] private float _deceleration = 5f;
+        [SerializeField, Range(-10f, 10f)] private float _initialSpeed = 0f;
+        [SerializeField, Range(-10f, 0f)] private float _minSpeed = -0.5f;
+        [SerializeField, Range(0f, 10f)] private float _maxSpeed = 5f;
+
+        [NonSerialized] private Rigidbody _rigidbody;
 
         [NonSerialized] private float _speed;
-        [NonSerialized] private Coroutine _speedCoroutine;
+        [NonSerialized] private int _speedDelta;
 
         private void Awake()
         {
@@ -32,36 +36,20 @@ namespace Moyba.Avatar
             _manager.Kinematics = this;
             _Stub.TransferControlTo(this);
 
-            _animator = this.GetComponent<Animator>();
+            _rigidbody = this.GetComponent<Rigidbody>();
 
-            this.HandleSpeedChanged(0);
+            _speed = _initialSpeed;
         }
 
-        private IEnumerator Coroutine_ApplySpeed(int input)
+#if UNITY_EDITOR
+        private void HandleDebugSignal()
         {
-            var rate = input > 0 ? _acceleration * input : _deceleration * input;
-            do
-            {
-                var delta = rate * Time.deltaTime;
-                _speed = Mathf.Clamp(_speed + delta, _minSpeed, _maxSpeed);
-
-                _animator.SetFloat(_AvatarSpeed, _speed / _maxSpeed);
-
-                yield return null;
-            }
-            while (_speed < _maxSpeed && _speed > _minSpeed);
-
-            _speedCoroutine = null;
+            this.transform.position = Vector3.zero;
         }
+#endif
 
-        private void HandleSpeedChanged(int input)
-        {
-            if (_speedCoroutine != null) this.StopCoroutine(_speedCoroutine);
-
-            if (input == 0) return;
-
-            _speedCoroutine = this.StartCoroutine(Coroutine_ApplySpeed(input));
-        }
+        private void HandleSpeedChanged(int speedDelta)
+        => _speedDelta = speedDelta;
 
         private void OnDestroy()
         {
@@ -73,11 +61,40 @@ namespace Moyba.Avatar
         private void OnDisable()
         {
             Omnibus.Input.Avatar.OnSpeedChanged -= this.HandleSpeedChanged;
+
+#if UNITY_EDITOR
+            Omnibus.Input.Debug.OnSignal -= this.HandleDebugSignal;
+#endif
         }
 
         private void OnEnable()
         {
             Omnibus.Input.Avatar.OnSpeedChanged += this.HandleSpeedChanged;
+
+#if UNITY_EDITOR
+            Omnibus.Input.Debug.OnSignal += this.HandleDebugSignal;
+#endif
+        }
+
+        private void FixedUpdate()
+        {
+            if (_speedDelta != 0)
+            {
+                var rate = _speed > 0
+                    ? (_speedDelta > 0 ? _positiveAcceleration : _deceleration)
+                    : (_speedDelta > 0 ? _deceleration : _negativeAcceleration);
+                _speed += _speedDelta * rate * Time.deltaTime;
+                _speed = Mathf.Clamp(_speed, _minSpeed, _maxSpeed);
+            }
+
+            // TODO: turn
+            // TODO: in air
+            _rigidbody.linearVelocity = new Vector3(0, 0, _speed);
+        }
+
+        private void Update()
+        {
+            _animator.SetFloat(_AvatarSpeed, _speed);
         }
 
         private class _StubAvatarKinematics : ATraitStub<AvatarKinematics>, IAvatarKinematics { }
