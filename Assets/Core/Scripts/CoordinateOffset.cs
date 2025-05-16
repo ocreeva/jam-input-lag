@@ -34,6 +34,6 @@ namespace Moyba
         => HashCode.Combine(this.x, this.y);
 
         public override string ToString()
-        => $"{this.x:+##0;-##0}, {this.y:+##0,-##0}";
+        => $"{this.x:+##0;-##0}, {this.y:+##0;-##0}";
     }
 }
