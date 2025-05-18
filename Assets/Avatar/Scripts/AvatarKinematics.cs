@@ -36,10 +36,7 @@ namespace Moyba.Avatar
 
         [NonSerialized] private float _speed;
         [NonSerialized] private int _speedInput;
-
         [NonSerialized] private int _strafeInput;
-
-        [NonSerialized] private Quaternion _facing = Quaternion.identity;
         [NonSerialized] private int _turnInput;
 
         private void Awake()
@@ -51,7 +48,6 @@ namespace Moyba.Avatar
             _rigidbody = this.GetComponent<Rigidbody>();
 
             _speed = _initialSpeed;
-            _facing = this.transform.rotation;
         }
 
 #if UNITY_EDITOR
@@ -99,36 +95,55 @@ namespace Moyba.Avatar
 
         private void FixedUpdate()
         {
-            if (_speedInput != 0)
-            {
-                var rate = _speed > 0
-                    ? (_speedInput > 0 ? _positiveAcceleration : _deceleration)
-                    : (_speedInput > 0 ? _deceleration : _negativeAcceleration);
-                _speed += _speedInput * rate * Time.deltaTime;
-                _speed = Mathf.Clamp(_speed, _minSpeed, _maxSpeed);
-            }
+            this.FixedUpdate_ApplySpeedInput();
+            this.FixedUpdate_ApplyTurnInput();
+            this.FixedUpdate_RecalculateVelocity();
+            this.FixedUpdate_ApplyStrafeInput();
+        }
 
-            if (_turnInput != 0)
-            {
-                _facing = Quaternion.LerpUnclamped(_facing, _facing * _Right, _turnInput * _turnRate * Time.deltaTime);
-            }
+        private void FixedUpdate_ApplySpeedInput()
+        {
+            if (_speedInput == 0) return;
+            if (!_manager.IsGrounded.Value) return;
 
-            var velocity = _facing * Vector3.forward * _speed;
-            if (_strafeInput != 0)
-            {
-                velocity = Quaternion.Euler(0, _strafeAngle * _strafeInput * Mathf.Sign(_speed), 0) * velocity;
-            }
+            var rate = _speed > 0
+                ? (_speedInput > 0 ? _positiveAcceleration : _deceleration)
+                : (_speedInput > 0 ? _deceleration : _negativeAcceleration);
+            _speed = Mathf.Clamp(_speed + _speedInput * rate * Time.deltaTime, _minSpeed, _maxSpeed);
+        }
 
-            // TODO: in air
-            _rigidbody.linearVelocity = velocity;
+        private void FixedUpdate_ApplyStrafeInput()
+        {
+            if (_strafeInput == 0) return;
+            if (!_manager.IsGrounded.Value) return;
+
+            _rigidbody.linearVelocity =
+                Quaternion.Euler(0, _strafeAngle * _strafeInput * Mathf.Sign(_speed), 0) *
+                _rigidbody.linearVelocity;
+        }
+
+        private void FixedUpdate_ApplyTurnInput()
+        {
+            if (_turnInput == 0) return;
+            if (!_manager.IsGrounded.Value) return;
+
+            this.transform.rotation = Quaternion.LerpUnclamped(
+                this.transform.rotation,
+                this.transform.rotation * _Right,
+                _turnInput * _turnRate * Time.deltaTime);
+        }
+
+        private void FixedUpdate_RecalculateVelocity()
+        {
+            if (!_manager.IsGrounded.Value) return;
+
+            _rigidbody.linearVelocity = this.transform.rotation * Vector3.forward * _speed;
         }
 
         private void Update()
         {
             _animator.SetFloat(_AvatarSpeed, _speed);
             _animator.SetFloat(_AvatarStrafe, _speed * _strafeInput);
-
-            this.transform.rotation = _facing;
         }
 
         private class _StubAvatarKinematics : ATraitStub<AvatarKinematics>, IAvatarKinematics { }
