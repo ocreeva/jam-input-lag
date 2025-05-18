@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6434233752431202430}
   - component: {fileID: 5353415037499405466}
   - component: {fileID: 7190764551710128165}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8473858280584738528}
   - component: {fileID: 5108435772160795022}
   - component: {fileID: 6423950096981360417}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor Tile (0, 0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
