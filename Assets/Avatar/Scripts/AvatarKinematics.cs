@@ -7,6 +7,9 @@ namespace Moyba.Avatar
     [RequireComponent(typeof(Rigidbody))]
     public class AvatarKinematics : ATrait<AvatarManager>, IAvatarKinematics
     {
+        private const string _AvatarJumpLiteral = "Jump";
+        private static readonly int _AvatarJump = Animator.StringToHash(_AvatarJumpLiteral);
+
         private const string _AvatarSpeedLiteral = "Speed";
         private static readonly int _AvatarSpeed = Animator.StringToHash(_AvatarSpeedLiteral);
 
@@ -31,6 +34,7 @@ namespace Moyba.Avatar
         [SerializeField, Range(0f, 10f)] private float _maxSpeed = 5f;
         [SerializeField, Range(0f, 90f)] private float _strafeAngle = 45f;
         [SerializeField, Range(0f, 10f)] private float _turnRate = 1.2f;
+        [SerializeField, Range(0f, 100f)] private float _jumpVelocity = 10f;
 
         [NonSerialized] private Rigidbody _rigidbody;
 
@@ -57,6 +61,14 @@ namespace Moyba.Avatar
         }
 #endif
 
+        private void HandleJump()
+        {
+            if (!_manager.IsGrounded.Value) return;
+
+            var velocity = _rigidbody.linearVelocity;
+            _rigidbody.linearVelocity = new Vector3(velocity.x, Mathf.Max(velocity.y, _jumpVelocity), velocity.z);
+        }
+
         private void HandleSpeedChanged(int speedInput)
         => _speedInput = speedInput;
         private void HandleStrafeChanged(int strafeInput)
@@ -73,6 +85,7 @@ namespace Moyba.Avatar
 
         private void OnDisable()
         {
+            Omnibus.Input.Avatar.OnJump -= this.HandleJump;
             Omnibus.Input.Avatar.OnSpeedChanged -= this.HandleSpeedChanged;
             Omnibus.Input.Avatar.OnStrafeChanged -= this.HandleStrafeChanged;
             Omnibus.Input.Avatar.OnTurnChanged -= this.HandleTurnChanged;
@@ -84,6 +97,7 @@ namespace Moyba.Avatar
 
         private void OnEnable()
         {
+            Omnibus.Input.Avatar.OnJump += this.HandleJump;
             Omnibus.Input.Avatar.OnSpeedChanged += this.HandleSpeedChanged;
             Omnibus.Input.Avatar.OnStrafeChanged += this.HandleStrafeChanged;
             Omnibus.Input.Avatar.OnTurnChanged += this.HandleTurnChanged;
@@ -137,7 +151,10 @@ namespace Moyba.Avatar
         {
             if (!_manager.IsGrounded.Value) return;
 
-            _rigidbody.linearVelocity = this.transform.rotation * Vector3.forward * _speed;
+            var velocity = _rigidbody.linearVelocity;
+            var horizontalVelocity = this.transform.rotation * Vector3.forward * _speed;
+
+            _rigidbody.linearVelocity = new Vector3(horizontalVelocity.x, velocity.y, horizontalVelocity.z);
         }
 
         private void Update()

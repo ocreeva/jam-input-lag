@@ -35,6 +35,7 @@ namespace Moyba.Input
             set => _Set(value, ref _turn, onChanged: OnTurnChanged);
         }
 
+        public event SimpleEventHandler OnJump;
         public event ValueEventHandler<int> OnSpeedChanged;
         public event ValueEventHandler<int> OnStrafeChanged;
         public event ValueEventHandler<int> OnTurnChanged;
@@ -46,6 +47,8 @@ namespace Moyba.Input
             _Stub.TransferControlTo(this);
         }
 
+        private void HandleJumpPerformed(InputAction.CallbackContext _)
+        => this.OnJump?.Invoke();
         private void HandleSpeedChanged(InputAction.CallbackContext context)
         => this.Speed = Mathf.RoundToInt(context.ReadValue<float>());
 
@@ -64,6 +67,8 @@ namespace Moyba.Input
 
         private void OnDisable()
         {
+            _avatarActions.Jump.performed -= this.HandleJumpPerformed;
+
             _avatarActions.Speed.started -= this.HandleSpeedChanged;
             _avatarActions.Speed.canceled -= this.HandleSpeedChanged;
             this.Speed = 0;
@@ -84,6 +89,8 @@ namespace Moyba.Input
             _avatarActions = _manager.Controls.Avatar;
             _avatarActions.Enable();
 
+            _avatarActions.Jump.performed += this.HandleJumpPerformed;
+
             _avatarActions.Speed.started += this.HandleSpeedChanged;
             _avatarActions.Speed.canceled += this.HandleSpeedChanged;
             this.Speed = Mathf.RoundToInt(_avatarActions.Speed.ReadValue<float>());
@@ -103,12 +110,14 @@ namespace Moyba.Input
             public int Strafe => 0;
             public int Turn => 0;
 
+            public event SimpleEventHandler OnJump;
             public event ValueEventHandler<int> OnSpeedChanged;
             public event ValueEventHandler<int> OnStrafeChanged;
             public event ValueEventHandler<int> OnTurnChanged;
 
             protected override void TransferEvents(AvatarInput trait)
             {
+                (this.OnJump, trait.OnJump) = (trait.OnJump, this.OnJump);
                 (this.OnSpeedChanged, trait.OnSpeedChanged) = (trait.OnSpeedChanged, this.OnSpeedChanged);
                 (this.OnStrafeChanged, trait.OnStrafeChanged) = (trait.OnStrafeChanged, this.OnStrafeChanged);
                 (this.OnTurnChanged, trait.OnTurnChanged) = (trait.OnTurnChanged, this.OnTurnChanged);

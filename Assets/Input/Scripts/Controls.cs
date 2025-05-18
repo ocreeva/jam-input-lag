@@ -94,6 +94,15 @@ namespace Moyba.Input
             ""id"": ""d3c85d1a-1799-467c-9125-9623d53adb46"",
             ""actions"": [
                 {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""d72564cf-b053-4da7-9ef3-b06828015396"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Speed"",
                     ""type"": ""Value"",
                     ""id"": ""216765cc-8192-4ce9-a0ae-1d14d87625f3"",
@@ -220,6 +229,17 @@ namespace Moyba.Input
                     ""action"": ""Turn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af9541b9-d977-448d-aeaf-b6062a8412e6"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -861,6 +881,7 @@ namespace Moyba.Input
 }");
             // Avatar
             m_Avatar = asset.FindActionMap("Avatar", throwIfNotFound: true);
+            m_Avatar_Jump = m_Avatar.FindAction("Jump", throwIfNotFound: true);
             m_Avatar_Speed = m_Avatar.FindAction("Speed", throwIfNotFound: true);
             m_Avatar_Strafe = m_Avatar.FindAction("Strafe", throwIfNotFound: true);
             m_Avatar_Turn = m_Avatar.FindAction("Turn", throwIfNotFound: true);
@@ -965,6 +986,7 @@ namespace Moyba.Input
         // Avatar
         private readonly InputActionMap m_Avatar;
         private List<IAvatarActions> m_AvatarActionsCallbackInterfaces = new List<IAvatarActions>();
+        private readonly InputAction m_Avatar_Jump;
         private readonly InputAction m_Avatar_Speed;
         private readonly InputAction m_Avatar_Strafe;
         private readonly InputAction m_Avatar_Turn;
@@ -979,6 +1001,10 @@ namespace Moyba.Input
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
             public AvatarActions(@Controls wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "Avatar/Jump".
+            /// </summary>
+            public InputAction @Jump => m_Wrapper.m_Avatar_Jump;
             /// <summary>
             /// Provides access to the underlying input action "Avatar/Speed".
             /// </summary>
@@ -1017,6 +1043,9 @@ namespace Moyba.Input
             {
                 if (instance == null || m_Wrapper.m_AvatarActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_AvatarActionsCallbackInterfaces.Add(instance);
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
                 @Speed.started += instance.OnSpeed;
                 @Speed.performed += instance.OnSpeed;
                 @Speed.canceled += instance.OnSpeed;
@@ -1037,6 +1066,9 @@ namespace Moyba.Input
             /// <seealso cref="AvatarActions" />
             private void UnregisterCallbacks(IAvatarActions instance)
             {
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
                 @Speed.started -= instance.OnSpeed;
                 @Speed.performed -= instance.OnSpeed;
                 @Speed.canceled -= instance.OnSpeed;
@@ -1538,6 +1570,13 @@ namespace Moyba.Input
         /// <seealso cref="AvatarActions.RemoveCallbacks(IAvatarActions)" />
         public interface IAvatarActions
         {
+            /// <summary>
+            /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnJump(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Speed" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

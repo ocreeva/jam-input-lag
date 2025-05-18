@@ -6,6 +6,15 @@
             "id": "d3c85d1a-1799-467c-9125-9623d53adb46",
             "actions": [
                 {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "d72564cf-b053-4da7-9ef3-b06828015396",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Speed",
                     "type": "Value",
                     "id": "216765cc-8192-4ce9-a0ae-1d14d87625f3",
@@ -132,6 +141,17 @@
                     "action": "Turn",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "af9541b9-d977-448d-aeaf-b6062a8412e6",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
