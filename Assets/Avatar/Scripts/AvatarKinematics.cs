@@ -67,6 +67,8 @@ namespace Moyba.Avatar
 
             var velocity = _rigidbody.linearVelocity;
             _rigidbody.linearVelocity = new Vector3(velocity.x, Mathf.Max(velocity.y, _jumpVelocity), velocity.z);
+
+            Omnibus.SFX.Play(SFX.SoundClip.Jump);
         }
 
         private void HandleSpeedChanged(int speedInput)

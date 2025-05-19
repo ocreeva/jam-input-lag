@@ -28,7 +28,7 @@ namespace Moyba.Collectibles
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"{this.Denomination} pickup: {other.gameObject.name}");
+            Omnibus.SFX.Play(SFX.SoundClip.Coin);
         }
     }
 }

@@ -7,5 +7,7 @@ namespace Moyba.SFX
         IBoolValue MusicIsMuted { get; }
         IBoolValue SoundIsMuted { get; }
         IValue<float> Volume { get; }
+
+        void Play(SoundClip soundClip);
     }
 }
