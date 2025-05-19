@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5500104028773705787}
   m_Layer: 0
-  m_Name: Collectables
+  m_Name: Collectibles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

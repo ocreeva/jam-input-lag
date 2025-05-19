@@ -1,9 +1,9 @@
 using Moyba.Contracts;
 using UnityEngine;
 
-namespace Moyba.Collectables
+namespace Moyba.Collectibles
 {
-    public class Coin : AnEntity<CollectablesManager>, ICoin
+    public class Coin : AnEntity<CollectiblesManager>, ICoin
     {
         [SerializeField] private CoinDenomination _denomination = CoinDenomination.Bronze;
 

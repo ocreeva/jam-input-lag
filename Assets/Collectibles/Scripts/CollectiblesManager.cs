@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using Moyba.Contracts;
 using UnityEngine;
 
-namespace Moyba.Collectables
+namespace Moyba.Collectibles
 {
-    [CreateAssetMenu(fileName = "Omnibus.Collectables.asset", menuName = "Omnibus/Collectables")]
-    public class CollectablesManager : AManager, ICollectablesManager
+    [CreateAssetMenu(fileName = "Omnibus.Collectibles.asset", menuName = "Omnibus/Collectibles")]
+    public class CollectiblesManager : AManager, ICollectiblesManager
     {
         private readonly IDictionary<Coordinate, ICoin> _coins = new Dictionary<Coordinate, ICoin>();
 

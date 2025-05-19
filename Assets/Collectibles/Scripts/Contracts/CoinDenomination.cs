@@ -1,4 +1,4 @@
-namespace Moyba.Collectables
+namespace Moyba.Collectibles
 {
     public enum CoinDenomination
     {

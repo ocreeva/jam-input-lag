@@ -1,0 +1,16 @@
+{
+    "name": "Moyba.Collectibles",
+    "rootNamespace": "Moyba.Collectibles",
+    "references": [
+        "GUID:580aeb5a1b69ac34ea5bd96646592dc0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

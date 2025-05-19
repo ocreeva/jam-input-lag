@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _avatar: {fileID: 11400000, guid: 86411f77b0b7b594193572d2428d1ed9, type: 2}
-  _collectables: {fileID: 11400000, guid: 912ada0b8fb244e479fe85ddf53b9688, type: 2}
+  _collectibles: {fileID: 11400000, guid: 912ada0b8fb244e479fe85ddf53b9688, type: 2}
   _input: {fileID: 11400000, guid: 3c093e7b3b2a66a4f87814c4d9737458, type: 2}
   _sfx: {fileID: 11400000, guid: 5cd5292a2bf92a34fab5368caf337cca, type: 2}
   _terrain: {fileID: 11400000, guid: 312fab61069c72e428891167c2c952dd, type: 2}
