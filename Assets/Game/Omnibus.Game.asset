@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41e2c7ebf29b304884b804ed13d3028, type: 3}
+  m_Name: Omnibus.Game
+  m_EditorClassIdentifier: 
+  _configuration:
+    _casual: {fileID: 11400000, guid: 87ab97e20ccdd004ba91faccd90fa8cb, type: 2}
+    _standard: {fileID: 11400000, guid: 95c5427aab665ec43b40cb3ed941849e, type: 2}
+    _expert: {fileID: 11400000, guid: db2398f5976faad40a19ce86be6b8090, type: 2}

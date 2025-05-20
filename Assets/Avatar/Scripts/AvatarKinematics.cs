@@ -43,6 +43,8 @@ namespace Moyba.Avatar
         [NonSerialized] private int _strafeInput;
         [NonSerialized] private int _turnInput;
 
+        public Vector3 Position => this.transform.position;
+
         private void Awake()
         {
             this._Assert(ReferenceEquals(_manager.Kinematics, _Stub), "is replacing a non-stub instance.");
@@ -165,6 +167,9 @@ namespace Moyba.Avatar
             _animator.SetFloat(_AvatarStrafe, _speed * _strafeInput);
         }
 
-        private class _StubAvatarKinematics : ATraitStub<AvatarKinematics>, IAvatarKinematics { }
+        private class _StubAvatarKinematics : ATraitStub<AvatarKinematics>, IAvatarKinematics
+        {
+            public Vector3 Position => Vector3.zero;
+        }
     }
 }

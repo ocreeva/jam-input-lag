@@ -1,5 +1,6 @@
 using Moyba.Avatar;
 using Moyba.Collectibles;
+using Moyba.Game;
 using Moyba.Input;
 using Moyba.SFX;
 using Moyba.Terrain;
@@ -15,6 +16,7 @@ namespace Moyba.Contracts
 
         [SerializeField, Require(typeof(IAvatarManager))] private Object _avatar;
         [SerializeField, Require(typeof(ICollectiblesManager))] private Object _collectibles;
+        [SerializeField, Require(typeof(IGameManager))] private Object _game;
         [SerializeField, Require(typeof(IInputManager))] private Object _input;
         [SerializeField, Require(typeof(ISFXManager))] private Object _sfx;
         [SerializeField, Require(typeof(ITerrainManager))] private Object _terrain;
@@ -22,6 +24,7 @@ namespace Moyba.Contracts
 
         public static IAvatarManager Avatar { get; private set; }
         public static ICollectiblesManager Collectibles { get; private set; }
+        public static IGameManager Game { get; private set; }
         public static IInputManager Input { get; private set; }
         public static ISFXManager SFX { get; private set; }
         public static ITerrainManager Terrain { get; private set; }
@@ -40,6 +43,7 @@ namespace Moyba.Contracts
 
                 Omnibus.Avatar = (IAvatarManager)_avatar;
                 Omnibus.Collectibles = (ICollectiblesManager)_collectibles;
+                Omnibus.Game = (IGameManager)_game;
                 Omnibus.Input = (IInputManager)_input;
                 Omnibus.SFX = (ISFXManager)_sfx;
                 Omnibus.Terrain = (ITerrainManager)_terrain;
@@ -52,6 +56,7 @@ namespace Moyba.Contracts
         {
             _avatar = _ContractUtility.LoadOmnibusAsset<IAvatarManager>() as Object;
             _collectibles = _ContractUtility.LoadOmnibusAsset<ICollectiblesManager>() as Object;
+            _game = _ContractUtility.LoadOmnibusAsset<IGameManager>() as Object;
             _input = _ContractUtility.LoadOmnibusAsset<IInputManager>() as Object;
             _sfx = _ContractUtility.LoadOmnibusAsset<ISFXManager>() as Object;
             _terrain = _ContractUtility.LoadOmnibusAsset<ITerrainManager>() as Object;
