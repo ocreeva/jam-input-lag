@@ -23,6 +23,6 @@ namespace #NAMESPACE#
             _Stub.TransferControlFrom(this);
         }
 
-        private class _Stub#SCRIPTNAME# : AValueTraitStub<#SCRIPTNAME#, float> { }
+        private class _Stub#SCRIPTNAME# : AValueTraitStub<#SCRIPTNAME#> { }
     }
 }
