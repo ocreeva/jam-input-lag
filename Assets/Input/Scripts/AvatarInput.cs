@@ -48,15 +48,25 @@ namespace Moyba.Input
         }
 
         private void HandleJumpPerformed(InputAction.CallbackContext _)
-        => this.OnJump?.Invoke();
+        => Omnibus.Game.Signal.Send(() => this.OnJump?.Invoke());
+
         private void HandleSpeedChanged(InputAction.CallbackContext context)
-        => this.Speed = Mathf.RoundToInt(context.ReadValue<float>());
+        {
+            var value = Mathf.RoundToInt(context.ReadValue<float>());
+            Omnibus.Game.Signal.Send(() => this.Speed = value);
+        }
 
         private void HandleStrafeChanged(InputAction.CallbackContext context)
-        => this.Strafe = Mathf.RoundToInt(context.ReadValue<float>());
+        {
+            var value = Mathf.RoundToInt(context.ReadValue<float>());
+            Omnibus.Game.Signal.Send(() => this.Strafe = value);
+        }
 
         private void HandleTurnChanged(InputAction.CallbackContext context)
-        => this.Turn = Mathf.RoundToInt(context.ReadValue<float>());
+        {
+            var value = Mathf.RoundToInt(context.ReadValue<float>());
+            Omnibus.Game.Signal.Send(() => this.Turn = value);
+        }
 
         private void OnDestroy()
         {
