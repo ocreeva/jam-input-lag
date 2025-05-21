@@ -1061,6 +1061,7 @@ MonoBehaviour:
   _maxSpeed: 5
   _strafeAngle: 45
   _turnRate: 1.2
+  _jumpVelocity: 5
 --- !u!1 &3433623536213821503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2164,7 +2165,7 @@ GameObject:
   - component: {fileID: 319854666880427594}
   - component: {fileID: 4327497844800895002}
   - component: {fileID: 1947289051164759759}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
