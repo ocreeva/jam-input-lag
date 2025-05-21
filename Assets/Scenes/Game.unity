@@ -5154,15 +5154,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game
       objectReference: {fileID: 0}
-    - target: {fileID: 1235715905324342906, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
+    - target: {fileID: 3226318379165111121, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1235715905324342906, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
+    - target: {fileID: 3226318379165111121, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1235715905324342906, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
+    - target: {fileID: 3226318379165111121, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -5246,15 +5246,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7147096547159956674, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
+    - target: {fileID: 7867469301539362662, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7147096547159956674, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
+    - target: {fileID: 7867469301539362662, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7147096547159956674, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
+    - target: {fileID: 7867469301539362662, guid: d170aa64004ebf84e91e46bf3d8ce178, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}

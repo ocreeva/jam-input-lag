@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 namespace Moyba.Game.UI
 {
-    [RequireComponent(typeof(Image))]
+    [RequireComponent(typeof(Graphic))]
     public class GameUI_LatencyColor : MonoBehaviour
     {
         [SerializeField] private Color[] _colors = new Color[4];
 
-        [NonSerialized] private Image _image;
+        [NonSerialized] private Graphic _graphic;
 
         private void Awake()
         {
-            _image = this.GetComponent<Image>();
+            _graphic = this.GetComponent<Graphic>();
         }
 
         private void HandleLatencyChanged(float latency)
@@ -22,7 +22,7 @@ namespace Moyba.Game.UI
             var floor = Math.Clamp(Mathf.FloorToInt(latency), 0, 3);
             if ((latency == floor) || (floor == 3))
             {
-                _image.color = _colors[floor];
+                _graphic.color = _colors[floor];
                 return;
             }
 
@@ -30,7 +30,7 @@ namespace Moyba.Game.UI
             var secondaryColor = _colors[floor + 1];
             var secondaryShare = latency - floor;
             var primaryShare = 1 - secondaryShare;
-            _image.color = primaryColor * primaryShare + secondaryColor * secondaryShare;
+            _graphic.color = primaryColor * primaryShare + secondaryColor * secondaryShare;
         }
 
         private void OnDisable()
