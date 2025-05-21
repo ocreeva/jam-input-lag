@@ -64,7 +64,7 @@ namespace Moyba.Editor
             var namespaceSegments = featureHierarchy.Prepend(EditorSettings.projectGenerationRootNamespace);
 
             // append an ending Editor segment for Editor scripts
-            if (isEditorScript) namespaceSegments.Append(_EditorDirectoryName);
+            if (isEditorScript) namespaceSegments = namespaceSegments.Append(_EditorDirectoryName);
 
             // generate the namespace
             return String.Join('.', namespaceSegments);
