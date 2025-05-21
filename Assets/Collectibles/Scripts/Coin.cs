@@ -7,6 +7,8 @@ namespace Moyba.Collectibles
     {
         [SerializeField] private CoinDenomination _denomination = CoinDenomination.Bronze;
 
+        public event SimpleEventHandler OnPickup;
+
         public Coordinate Coordinate { get; private set; }
 
         public CoinDenomination Denomination => _denomination;
@@ -29,6 +31,15 @@ namespace Moyba.Collectibles
         private void OnTriggerEnter(Collider other)
         {
             Omnibus.SFX.Play(SFX.SoundClip.Coin);
+
+            this.OnPickup?.Invoke();
+
+            GameObject.Destroy(this.gameObject);
         }
+    }
+
+    public partial class CollectiblesConfiguration
+    {
+
     }
 }
