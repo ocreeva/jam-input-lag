@@ -6,10 +6,12 @@ namespace Moyba.Terrain
     public partial class FloorTile : AnEntity<TerrainManager>, IFloorTile
     {
         public Coordinate Coordinate { get; private set; }
+        public float Height { get; private set; }
 
         private void Awake()
         {
             this.Coordinate = new Coordinate(this.transform.position);
+            this.Height = this.transform.position.y;
         }
 
         private void OnDisable()

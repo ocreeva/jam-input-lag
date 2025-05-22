@@ -964,6 +964,8 @@ GameObject:
   - component: {fileID: 6447263811255777348}
   - component: {fileID: 1881094839700166334}
   - component: {fileID: 6777455801748106297}
+  - component: {fileID: 7924083689297824326}
+  - component: {fileID: 7862889525656117117}
   - component: {fileID: 7287493100003137953}
   m_Layer: 6
   m_Name: Avatar
@@ -1039,6 +1041,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &7924083689297824326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3411987350261474228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d295cc4b91d3e8945bc5e8f90c5846a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 11400000, guid: 86411f77b0b7b594193572d2428d1ed9, type: 2}
+--- !u!114 &7862889525656117117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3411987350261474228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089ce26a5218c68418f9565a51f65901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 11400000, guid: 86411f77b0b7b594193572d2428d1ed9, type: 2}
+  _timeToTeleport: 1.5
+  _teleportHeight: 10
 --- !u!114 &7287493100003137953
 MonoBehaviour:
   m_ObjectHideFlags: 0

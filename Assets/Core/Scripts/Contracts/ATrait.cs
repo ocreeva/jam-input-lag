@@ -43,7 +43,11 @@ namespace Moyba.Contracts
 
             [System.Diagnostics.Conditional("UNITY_ASSERTIONS")]
             protected void _SetFail(string paramName)
-            => Debug.LogWarning($"{this.GetType().Name} is settings a value for '{paramName}'.");
+            => Debug.LogWarning($"{this.GetType().Name} is setting a value for '{paramName}'.");
+
+            [System.Diagnostics.Conditional("UNITY_ASSERTIONS")]
+            protected void _CallFail(string methodName)
+            => Debug.LogWarning($"{this.GetType().Name} is invoking '{methodName}'.");
         }
     }
 

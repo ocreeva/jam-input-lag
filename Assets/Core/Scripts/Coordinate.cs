@@ -15,6 +15,8 @@ namespace Moyba
             Mathf.RoundToInt(worldPosition.x / _Scale),
             Mathf.RoundToInt(worldPosition.z / _Scale)) { }
 
+        public static Coordinate Zero => new Coordinate(0, 0);
+
         public static bool operator ==(Coordinate c1, Coordinate c2)
         => (c1.x == c2.x) && (c1.y == c2.y);
 

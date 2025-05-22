@@ -45,6 +45,17 @@ namespace Moyba.Avatar
 
         public Vector3 Position => this.transform.position;
 
+        public void TeleportTo(Vector3 position, bool shouldResetVelocity)
+        {
+            this.transform.position = position;
+
+            if (shouldResetVelocity)
+            {
+                _speed = 0;
+                _rigidbody.linearVelocity = Vector3.zero;
+            }
+        }
+
         private void Awake()
         {
             this._Assert(ReferenceEquals(_manager.Kinematics, _Stub), "is replacing a non-stub instance.");
@@ -170,6 +181,8 @@ namespace Moyba.Avatar
         private class _StubAvatarKinematics : ATraitStub<AvatarKinematics>, IAvatarKinematics
         {
             public Vector3 Position => Vector3.zero;
+
+            public void TeleportTo(Vector3 position, bool shouldResetVelocity) => _CallFail(nameof(TeleportTo));
         }
     }
 }
