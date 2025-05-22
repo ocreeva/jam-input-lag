@@ -1,4 +1,5 @@
 using Moyba.Avatar;
+using Moyba.Camera;
 using Moyba.Collectibles;
 using Moyba.Game;
 using Moyba.Input;
@@ -15,6 +16,7 @@ namespace Moyba.Contracts
         private static Omnibus _Instance;
 
         [SerializeField, Require(typeof(IAvatarManager))] private Object _avatar;
+        [SerializeField, Require(typeof(ICameraManager))] private Object _camera;
         [SerializeField, Require(typeof(ICollectiblesManager))] private Object _collectibles;
         [SerializeField, Require(typeof(IGameManager))] private Object _game;
         [SerializeField, Require(typeof(IInputManager))] private Object _input;
@@ -23,6 +25,7 @@ namespace Moyba.Contracts
         [SerializeField, Require(typeof(IUIManager))] private Object _ui;
 
         public static IAvatarManager Avatar { get; private set; }
+        public static ICameraManager Camera { get; private set; }
         public static ICollectiblesManager Collectibles { get; private set; }
         public static IGameManager Game { get; private set; }
         public static IInputManager Input { get; private set; }
@@ -42,6 +45,7 @@ namespace Moyba.Contracts
                 Object.DontDestroyOnLoad(this.gameObject);
 
                 Omnibus.Avatar = (IAvatarManager)_avatar;
+                Omnibus.Camera = (ICameraManager)_camera;
                 Omnibus.Collectibles = (ICollectiblesManager)_collectibles;
                 Omnibus.Game = (IGameManager)_game;
                 Omnibus.Input = (IInputManager)_input;
@@ -55,6 +59,7 @@ namespace Moyba.Contracts
         private void Reset()
         {
             _avatar = _ContractUtility.LoadOmnibusAsset<IAvatarManager>() as Object;
+            _camera = _ContractUtility.LoadOmnibusAsset<ICameraManager>() as Object;
             _collectibles = _ContractUtility.LoadOmnibusAsset<ICollectiblesManager>() as Object;
             _game = _ContractUtility.LoadOmnibusAsset<IGameManager>() as Object;
             _input = _ContractUtility.LoadOmnibusAsset<IInputManager>() as Object;
