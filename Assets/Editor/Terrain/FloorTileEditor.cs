@@ -59,6 +59,7 @@ namespace Moyba.Terrain
 
             var targetCoordinate = new Coordinate(source.position) + _creationOffset[controlID].tile;
             var targetPosition = targetCoordinate.ToWorldPosition();
+            targetPosition.y = source.position.y;
 
             var container = source.parent;
 
