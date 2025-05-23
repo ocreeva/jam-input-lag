@@ -12,6 +12,8 @@ namespace Moyba.Game
         [Header("Settings")]
         [SerializeField] private DifficultyBased<GameConfiguration> _configuration;
 
+        public event ValueEventHandler<ISignalTransmitter> OnTransmitterActivated;
+
         public IValue<Difficulty> Difficulty { get; } = new AValue<Difficulty>();
         public IGameSignal Signal { get; internal set; } = GameSignal.Stub;
         internal IValue<float> SignalLatency { get; set; } = GameSignalLatency.Stub;
@@ -19,10 +21,15 @@ namespace Moyba.Game
 
         internal DifficultyBased<GameConfiguration> Configuration => _configuration;
 
+        internal void Deregister(ISignalTransmitter transmitter) => transmitter.IsTransmitting.OnTrue -= this.HandleTransmitterIsTransmitting;
+        internal void Register(ISignalTransmitter transmitter) => transmitter.IsTransmitting.OnTrue += this.HandleTransmitterIsTransmitting;
+
         private void HandleDifficultyChanged(Difficulty difficulty)
         {
             PlayerPrefs.SetString(_DifficultySetting, difficulty.ToString());
         }
+
+        private void HandleTransmitterIsTransmitting(ISignalTransmitter transmitter) => this.OnTransmitterActivated?.Invoke(transmitter);
 
         private void OnDisable()
         {

@@ -34,18 +34,31 @@ namespace Moyba.Contracts
         }
     }
 
-    public abstract class AValueTrait<TManager, TEntity, TValue> : ATrait<TManager, TEntity>, IValue<TEntity, TValue>
+    public abstract class AValueTrait<TManager, TEntity, TIEntity, TValue> : ATrait<TManager, TEntity>, IValue<TIEntity, TValue>, IValue<TValue>
         where TManager : ScriptableObject
-        where TEntity : AnEntity<TManager, TEntity>
+        where TEntity : AnEntity<TManager, TEntity>, TIEntity
     {
         private TValue _value;
 
-        public event ValueEventHandler<TEntity, TValue> OnChanged;
+        protected AValueTrait()
+        {
+            this.OnChangedWithEntity += this.HandleChanged;
+        }
+
+        public event ValueEventHandler<TValue> OnChanged;
+        private event ValueEventHandler<TIEntity, TValue> OnChangedWithEntity;
+        event ValueEventHandler<TIEntity, TValue> IEventableValue<TIEntity, TValue>.OnChanged
+        {
+            add => this.OnChangedWithEntity += value;
+            remove => this.OnChangedWithEntity -= value;
+        }
 
         public TValue Value
         {
             get => _value;
-            set => _Set(value, ref _value, onChanged: this.OnChanged);
+            set => _Set(value, ref _value, onChanged: this.OnChangedWithEntity);
         }
+
+        private void HandleChanged(TIEntity _, TValue value) => this.OnChanged?.Invoke(value);
     }
 }
