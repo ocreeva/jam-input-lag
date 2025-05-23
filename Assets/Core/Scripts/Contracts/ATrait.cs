@@ -14,6 +14,12 @@ namespace Moyba.Contracts
         }
 #endif
 
+        protected void _Set<TValue>(
+            TValue value,
+            ref TValue field,
+            ValueEventHandler<TValue> onChanged = null)
+        => _ContractUtility.Set(value, ref field, onChanged);
+
         protected abstract class ATraitStub<TTrait> : IEnableable
             where TTrait : ATrait<TManager>
         {
@@ -51,9 +57,9 @@ namespace Moyba.Contracts
         }
     }
 
-    public abstract class ATrait<TEntity, TManager> : AContract
-        where TEntity : AnEntity<TManager>
+    public abstract class ATrait<TManager, TEntity> : AContract
         where TManager : ScriptableObject
+        where TEntity : AnEntity<TManager, TEntity>
     {
         [SerializeField] protected TEntity _entity;
 
@@ -63,5 +69,11 @@ namespace Moyba.Contracts
             _entity = this.GetComponent<TEntity>() ?? this.GetComponentInParent<TEntity>();
         }
 #endif
+
+        protected void _Set<TValue>(
+            TValue value,
+            ref TValue field,
+            ValueEventHandler<TEntity, TValue> onChanged = null)
+        => _ContractUtility.Set(_entity, value, ref field, onChanged);
     }
 }

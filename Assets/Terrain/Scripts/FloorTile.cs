@@ -1,9 +1,8 @@
 using Moyba.Contracts;
-using UnityEngine;
 
 namespace Moyba.Terrain
 {
-    public partial class FloorTile : AnEntity<TerrainManager>, IFloorTile
+    public partial class FloorTile : AnEntity<TerrainManager, FloorTile>, IFloorTile
     {
         public Coordinate Coordinate { get; private set; }
         public float Height { get; private set; }

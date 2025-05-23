@@ -4,4 +4,9 @@ namespace Moyba.Contracts
     {
         new TValue Value { get; set; }
     }
+
+    public interface IValue<TEntity, TValue> : IReadOnlyValue<TEntity, TValue>
+    {
+        new TValue Value { get; set; }
+    }
 }

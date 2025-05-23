@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Moyba.Collectibles
 {
-    public class Coin : AnEntity<CollectiblesManager>, ICoin
+    public class Coin : AnEntity<CollectiblesManager, Coin>, ICoin
     {
         [SerializeField] private CoinDenomination _denomination = CoinDenomination.Bronze;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Moyba.SFX
 {
     [RequireComponent(typeof(AudioSource))]
-    public class SFXSound : AnEntity<SFXManager>, ISFXSound
+    public class SFXSound : AnEntity<SFXManager, SFXSound>, ISFXSound
     {
         [Header("Configuration")]
         [SerializeField] private SoundClip _soundClip;

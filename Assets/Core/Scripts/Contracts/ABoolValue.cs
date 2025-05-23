@@ -1,21 +1,18 @@
-using System;
-
 namespace Moyba.Contracts
 {
-    public class ABoolValue : IBoolValue
+    public class ABoolValue : AValue<bool>, IBoolValue
     {
-        [NonSerialized] private bool _value;
-
         public ABoolValue() => this.OnBoolean(this.OnFalse, this.OnTrue);
 
-        public bool Value
-        {
-            get => _value;
-            set => _ContractUtility.Set(value, ref _value, onChanged: this.OnChanged);
-        }
-
-        public event ValueEventHandler<bool> OnChanged;
         public event SimpleEventHandler OnFalse;
         public event SimpleEventHandler OnTrue;
+    }
+
+    public class ABoolValue<TEntity> : AValue<TEntity, bool>, IBoolValue<TEntity>
+    {
+        public ABoolValue(TEntity entity) : base(entity) => this.OnBoolean(this.OnFalse, this.OnTrue);
+
+        public event SimpleEventHandler<TEntity> OnFalse;
+        public event SimpleEventHandler<TEntity> OnTrue;
     }
 }

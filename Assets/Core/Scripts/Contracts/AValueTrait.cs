@@ -34,13 +34,13 @@ namespace Moyba.Contracts
         }
     }
 
-    public abstract class AValueTrait<TEntity, TManager, TValue> : ATrait<TEntity, TManager>, IValue<TValue>
-        where TEntity : AnEntity<TManager>
+    public abstract class AValueTrait<TManager, TEntity, TValue> : ATrait<TManager, TEntity>, IValue<TEntity, TValue>
         where TManager : ScriptableObject
+        where TEntity : AnEntity<TManager, TEntity>
     {
         private TValue _value;
 
-        public event ValueEventHandler<TValue> OnChanged;
+        public event ValueEventHandler<TEntity, TValue> OnChanged;
 
         public TValue Value
         {

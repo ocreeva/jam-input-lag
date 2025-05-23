@@ -5,4 +5,10 @@ namespace Moyba.Contracts
         event SimpleEventHandler OnFalse;
         event SimpleEventHandler OnTrue;
     }
+
+    public interface IReadOnlyBoolValue<TEntity> : IReadOnlyValue<TEntity, bool>
+    {
+        event SimpleEventHandler<TEntity> OnFalse;
+        event SimpleEventHandler<TEntity> OnTrue;
+    }
 }

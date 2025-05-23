@@ -33,7 +33,20 @@ namespace Moyba.Contracts
 
             field = value;
 
-            onChanged?.Invoke(field);
+            onChanged?.Invoke(value);
+        }
+
+        public static void Set<TEntity, TValue>(
+            TEntity entity,
+            TValue value,
+            ref TValue field,
+            ValueEventHandler<TEntity, TValue> onChanged)
+        {
+            if (EqualityComparer<TValue>.Default.Equals(value, field)) return;
+
+            field = value;
+
+            onChanged?.Invoke(entity, value);
         }
 
 #if UNITY_EDITOR
