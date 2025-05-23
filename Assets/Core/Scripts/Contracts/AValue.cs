@@ -6,13 +6,12 @@ namespace Moyba.Contracts
     {
         [NonSerialized] private TValue _value;
 
+        public event ValueEventHandler<TValue> OnChanged;
+
         public TValue Value
         {
             get => _value;
-            set => _ContractUtility.Set(value, ref _value, includeIdempotent: false, onChanged: this.OnChanged, onChanging: this.OnChanging);
+            set => _ContractUtility.Set(value, ref _value, onChanged: this.OnChanged);
         }
-
-        public event ValueEventHandler<TValue> OnChanged;
-        public event ValueEventHandler<TValue> OnChanging;
     }
 }

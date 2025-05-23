@@ -1,7 +1,7 @@
 namespace Moyba.Contracts
 {
-    public interface IValue<T> : IReadOnlyValue<T>
+    public interface IValue<TValue> : IReadOnlyValue<TValue>
     {
-        new T Value { get; set; }
+        new TValue Value { get; set; }
     }
 }

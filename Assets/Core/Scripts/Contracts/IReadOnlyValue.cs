@@ -1,10 +1,9 @@
 namespace Moyba.Contracts
 {
-    public interface IReadOnlyValue<T>
+    public interface IReadOnlyValue<TValue>
     {
-        event ValueEventHandler<T> OnChanged;
-        event ValueEventHandler<T> OnChanging;
+        event ValueEventHandler<TValue> OnChanged;
 
-        T Value { get; }
+        TValue Value { get; }
     }
 }

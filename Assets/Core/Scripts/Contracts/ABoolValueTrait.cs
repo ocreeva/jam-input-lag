@@ -8,26 +8,24 @@ namespace Moyba.Contracts
     {
         [NonSerialized] private bool _value;
 
+        protected ABoolValueTrait() => this.OnBoolean(this.OnFalse, this.OnTrue);
+
         public event ValueEventHandler<bool> OnChanged;
-        public event ValueEventHandler<bool> OnChanging;
         public event SimpleEventHandler OnFalse;
         public event SimpleEventHandler OnTrue;
 
         public bool Value
         {
             get => _value;
-            set => _Set(value, ref _value,
-                onChanged: this.OnChanged,
-                onChanging: this.OnChanging,
-                onFalse: this.OnFalse,
-                onTrue: this.OnTrue);
+            set => _Set(value, ref _value, onChanged: this.OnChanged);
         }
 
         protected abstract class ABoolValueTraitStub<TTrait> : ATraitStub<TTrait>, IBoolValue
             where TTrait : ABoolValueTrait<TManager>
         {
+            protected ABoolValueTraitStub() => this.OnBoolean(this.OnFalse, this.OnTrue);
+
             public event ValueEventHandler<bool> OnChanged;
-            public event ValueEventHandler<bool> OnChanging;
             public event SimpleEventHandler OnFalse;
             public event SimpleEventHandler OnTrue;
 
@@ -40,7 +38,6 @@ namespace Moyba.Contracts
             protected override void TransferEvents(TTrait trait)
             {
                 (this.OnChanged, trait.OnChanged) = (trait.OnChanged, this.OnChanged);
-                (this.OnChanging, trait.OnChanging) = (trait.OnChanging, this.OnChanging);
                 (this.OnFalse, trait.OnFalse) = (trait.OnFalse, this.OnFalse);
                 (this.OnTrue, trait.OnTrue) = (trait.OnTrue, this.OnTrue);
             }
@@ -53,19 +50,16 @@ namespace Moyba.Contracts
     {
         private bool _value;
 
+        protected ABoolValueTrait() => this.OnBoolean(this.OnFalse, this.OnTrue);
+
+        public event ValueEventHandler<bool> OnChanged;
         public event SimpleEventHandler OnFalse;
         public event SimpleEventHandler OnTrue;
-        public event ValueEventHandler<bool> OnChanged;
-        public event ValueEventHandler<bool> OnChanging;
 
         public bool Value
         {
             get => _value;
-            set => _Set(value, ref _value,
-                onChanged: this.OnChanged,
-                onChanging: this.OnChanging,
-                onFalse: this.OnFalse,
-                onTrue: this.OnTrue);
+            set => _Set(value, ref _value, onChanged: this.OnChanged);
         }
     }
 }

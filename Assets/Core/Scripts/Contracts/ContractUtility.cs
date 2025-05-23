@@ -11,53 +11,35 @@ namespace Moyba.Contracts
 #if UNITY_EDITOR
         private static readonly string[] _CommonSuffixes = { "Manager" };
 
-        public static T LoadOmnibusAsset<T>()
-            where T : class
+        public static TAsset LoadOmnibusAsset<TAsset>()
+            where TAsset : class
         {
-            var name = _ContractUtility.GetFeatureName<T>();
-            var asset = _ContractUtility.LoadAssetAtPath<T>("Assets", name, $"Omnibus.{name}.asset");
+            var name = _ContractUtility.GetFeatureName<TAsset>();
+            var asset = _ContractUtility.LoadAssetAtPath<TAsset>("Assets", name, $"Omnibus.{name}.asset");
             if (asset != null) return asset;
 
             // try pluralizing the name, for collection entities
             name = $"{name}s";
-            return _ContractUtility.LoadAssetAtPath<T>("Assets", name, $"Omnibus.{name}.asset");
+            return _ContractUtility.LoadAssetAtPath<TAsset>("Assets", name, $"Omnibus.{name}.asset");
         }
 #endif
 
-        public static void Set<T>(
-            T value,
-            ref T field,
-            bool includeIdempotent,
-            ValueEventHandler<T> onChanging,
-            ValueEventHandler<T> onChanged)
+        public static void Set<TValue>(
+            TValue value,
+            ref TValue field,
+            ValueEventHandler<TValue> onChanged)
         {
-            if (!includeIdempotent && EqualityComparer<T>.Default.Equals(value, field)) return;
-
-            onChanging?.Invoke(field);
+            if (EqualityComparer<TValue>.Default.Equals(value, field)) return;
 
             field = value;
 
             onChanged?.Invoke(field);
         }
 
-        public static void Set(
-            bool value,
-            ref bool field,
-            bool includeIdempotent,
-            ValueEventHandler<bool> onChanging,
-            ValueEventHandler<bool> onChanged,
-            SimpleEventHandler onFalse,
-            SimpleEventHandler onTrue)
-        {
-            _ContractUtility.Set(value, ref field, includeIdempotent, onChanging, onChanged);
-
-            (value ? onTrue : onFalse)?.Invoke();
-        }
-
 #if UNITY_EDITOR
-        private static string GetFeatureName<T>()
+        private static string GetFeatureName<TAsset>()
         {
-            var type = typeof(T);
+            var type = typeof(TAsset);
             var name = type.Name;
 
             if (type.IsInterface && name.StartsWith('I')) name = name[1..];
@@ -75,11 +57,11 @@ namespace Moyba.Contracts
             return name;
         }
 
-        private static T LoadAssetAtPath<T>(params string[] pathSegments)
-            where T : class
+        private static TAsset LoadAssetAtPath<TAsset>(params string[] pathSegments)
+            where TAsset : class
         {
             var path = Path.Combine(pathSegments);
-            return AssetDatabase.LoadMainAssetAtPath(path) as T;
+            return AssetDatabase.LoadMainAssetAtPath(path) as TAsset;
         }
 #endif
     }

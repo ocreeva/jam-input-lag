@@ -9,19 +9,17 @@ namespace Moyba.Contracts
         [NonSerialized] private TValue _value;
 
         public event ValueEventHandler<TValue> OnChanged;
-        public event ValueEventHandler<TValue> OnChanging;
 
         public TValue Value
         {
             get => _value;
-            set => _Set(value, ref _value, onChanged: this.OnChanged, onChanging: this.OnChanging);
+            set => _Set(value, ref _value, onChanged: this.OnChanged);
         }
 
         protected abstract class AValueTraitStub<TTrait> : ATraitStub<TTrait>, IValue<TValue>
             where TTrait : AValueTrait<TManager, TValue>
         {
             public event ValueEventHandler<TValue> OnChanged;
-            public event ValueEventHandler<TValue> OnChanging;
 
             public TValue Value
             {
@@ -32,7 +30,6 @@ namespace Moyba.Contracts
             protected override void TransferEvents(TTrait trait)
             {
                 (this.OnChanged, trait.OnChanged) = (trait.OnChanged, this.OnChanged);
-                (this.OnChanging, trait.OnChanging) = (trait.OnChanging, this.OnChanging);
             }
         }
     }
@@ -44,12 +41,11 @@ namespace Moyba.Contracts
         private TValue _value;
 
         public event ValueEventHandler<TValue> OnChanged;
-        public event ValueEventHandler<TValue> OnChanging;
 
         public TValue Value
         {
             get => _value;
-            set => _Set(value, ref _value, onChanged: this.OnChanged, onChanging: this.OnChanging);
+            set => _Set(value, ref _value, onChanged: this.OnChanged);
         }
     }
 }
