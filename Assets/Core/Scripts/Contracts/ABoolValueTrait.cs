@@ -25,8 +25,6 @@ namespace Moyba.Contracts
         protected abstract class ABoolValueTraitStub<TTrait> : ATraitStub<TTrait>, IBoolValue
             where TTrait : ABoolValueTrait<TManager>
         {
-            protected ABoolValueTraitStub() => this.OnChanged += this.HandleChanged;
-
             public event ValueEventHandler<bool> OnChanged;
             public event SimpleEventHandler OnFalse;
             public event SimpleEventHandler OnTrue;
@@ -39,12 +37,14 @@ namespace Moyba.Contracts
 
             protected override void TransferEvents(TTrait trait)
             {
+                trait.OnChanged -= trait.HandleChanged;
+
                 (this.OnChanged, trait.OnChanged) = (trait.OnChanged, this.OnChanged);
                 (this.OnFalse, trait.OnFalse) = (trait.OnFalse, this.OnFalse);
                 (this.OnTrue, trait.OnTrue) = (trait.OnTrue, this.OnTrue);
-            }
 
-            private void HandleChanged(bool value) => (value ? this.OnTrue : this.OnFalse)?.Invoke();
+                trait.OnChanged += trait.HandleChanged;
+            }
         }
     }
 
