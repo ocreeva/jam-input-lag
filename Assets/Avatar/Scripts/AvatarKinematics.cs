@@ -14,6 +14,9 @@ namespace Moyba.Avatar
         private const string _AvatarSpeedLiteral = "Speed";
         private static readonly int _AvatarSpeed = Animator.StringToHash(_AvatarSpeedLiteral);
 
+        private const string _AvatarStandUpLiteral = "Stand Up";
+        private static readonly int _AvatarStandUp = Animator.StringToHash(_AvatarStandUpLiteral);
+
         private const string _AvatarStrafeLiteral = "Strafe";
         private static readonly int _AvatarStrafe = Animator.StringToHash(_AvatarStrafeLiteral);
 
@@ -51,6 +54,9 @@ namespace Moyba.Avatar
 
         public void PoseForVictory()
         => this.StartCoroutine(Coroutine_PoseForVictory());
+
+        public void StandUp()
+        => _animator.SetTrigger(_AvatarStandUp);
 
         public void TeleportTo(Vector3 position, bool shouldResetVelocity)
         {
@@ -212,6 +218,7 @@ namespace Moyba.Avatar
             public Vector3 Position => Vector3.zero;
 
             public void PoseForVictory() { }
+            public void StandUp() { }
             public void TeleportTo(Vector3 position, bool shouldResetVelocity) => _CallFail(nameof(TeleportTo));
         }
     }

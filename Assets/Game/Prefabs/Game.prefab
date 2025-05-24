@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1146742684478182813}
+  - component: {fileID: 2487909724728038390}
   - component: {fileID: 7070822882945866153}
+  - component: {fileID: 609958845866293236}
   - component: {fileID: 6153126570878424089}
   - component: {fileID: 2625429531724589650}
   - component: {fileID: 159712409468858841}
@@ -35,6 +37,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2487909724728038390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316840841153468887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aaae6642a137dc4794abf24fe2b3f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 11400000, guid: 4dfdb1acde2a5484d84c80687257632f, type: 2}
+  _nextSceneID: -1
 --- !u!114 &7070822882945866153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,6 +61,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ba2522ebb5391444987016e54bac87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 11400000, guid: 4dfdb1acde2a5484d84c80687257632f, type: 2}
+--- !u!114 &609958845866293236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316840841153468887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55891c07c89eca4b841e9b4512c8da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _manager: {fileID: 11400000, guid: 4dfdb1acde2a5484d84c80687257632f, type: 2}
@@ -81,7 +110,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5316840841153468887}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c881eac92c188154880afc46f6e796c2, type: 3}
   m_Name: 

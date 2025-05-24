@@ -29,6 +29,9 @@ namespace Moyba.Game
 
             // close up for the victory pose
             Omnibus.Camera.Appendix.TransitionToAvatarCamera();
+
+            // show the level complete overlay
+            Omnibus.UI.Show(Moyba.UI.Overlay.LevelComplete);
         }
 
         private void OnDestroy()

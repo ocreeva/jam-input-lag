@@ -8,7 +8,10 @@ namespace Moyba.Game
 
         IValue<Difficulty> Difficulty { get; }
         IGameLevelComplete LevelComplete { get; }
+        IGameLevelStart LevelStart { get; }
         IGameSignal Signal { get; }
         IGameTimer Timer { get; }
+
+        void TransitionToNextScene();
     }
 }

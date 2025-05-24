@@ -14,13 +14,18 @@ namespace Moyba.Game
 
         public event ValueEventHandler<ISignalTransmitter> OnTransmitterActivated;
 
+        internal GameAppendix Appendix { get; set; }
         public IValue<Difficulty> Difficulty { get; } = new AValue<Difficulty>();
         public IGameLevelComplete LevelComplete { get; internal set; } = GameLevelComplete.Stub;
+        public IGameLevelStart LevelStart { get; internal set; } = GameLevelStart.Stub;
         public IGameSignal Signal { get; internal set; } = GameSignal.Stub;
         internal IValue<float> SignalLatency { get; set; } = GameSignalLatency.Stub;
         public IGameTimer Timer { get; internal set; } = GameTimer.Stub;
 
         internal DifficultyBased<GameConfiguration> Configuration => _configuration;
+
+        public void TransitionToNextScene()
+        => this.Appendix.TransitionToNextScene();
 
         internal void Deregister(ISignalTransmitter transmitter) => transmitter.IsTransmitting.OnTrue -= this.HandleTransmitterIsTransmitting;
         internal void Register(ISignalTransmitter transmitter) => transmitter.IsTransmitting.OnTrue += this.HandleTransmitterIsTransmitting;

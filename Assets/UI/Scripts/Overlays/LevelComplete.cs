@@ -1,3 +1,4 @@
+using Moyba.Contracts;
 using UnityEngine;
 
 namespace Moyba.UI.Overlays
@@ -6,7 +7,11 @@ namespace Moyba.UI.Overlays
     {
         public void Transition()
         {
-            Debug.Log("Transition");
+            Omnibus.UI.Show(Overlay.ScreenFade);
+
+            Omnibus.UI.Hide(Overlay.LevelComplete);
+
+            Omnibus.Game.TransitionToNextScene();
         }
     }
 }
