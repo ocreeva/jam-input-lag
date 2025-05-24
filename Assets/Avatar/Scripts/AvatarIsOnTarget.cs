@@ -30,7 +30,8 @@ namespace Moyba.Avatar
         {
             if (!avatarIsGrounded) return;
 
-            var floorTile = Omnibus.Terrain.GetFloorTile(avatarCoordinate);
+            if (!Omnibus.Terrain.TryGetFloorTile(avatarCoordinate, out var floorTile)) return;
+
             this.Value = floorTile.IsTarget;
         }
 

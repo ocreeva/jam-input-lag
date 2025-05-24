@@ -29,7 +29,10 @@ namespace Moyba.Avatar
             if (!isGrounded) return;
 
             // make sure the Coordinate has a corresponding floor tile (i.e. not straddling an edge)
-            if (!Omnibus.Terrain.TryGetFloorTile(coordinate, out var _)) return;
+            if (!Omnibus.Terrain.TryGetFloorTile(coordinate, out var floorTile)) return;
+
+            // don't retain dangerous tiles (no spawning above a tile with a hole)
+            if (floorTile.IsDangerous) return;
 
             this.LastGroundedValue = coordinate;
         }
