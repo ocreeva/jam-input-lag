@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Moyba.Terrain
 {
     public interface ITerrainManager

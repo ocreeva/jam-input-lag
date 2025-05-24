@@ -325,7 +325,7 @@ namespace Moyba.Input
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""06cd18f7-a983-4579-b9f4-a4cf462932a1"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

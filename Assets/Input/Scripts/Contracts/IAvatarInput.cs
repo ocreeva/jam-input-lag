@@ -1,6 +1,8 @@
+using Moyba.Contracts;
+
 namespace Moyba.Input
 {
-    public interface IAvatarInput
+    public interface IAvatarInput : IEnableable
     {
         event SimpleEventHandler OnJump;
         event ValueEventHandler<int> OnSpeedChanged;

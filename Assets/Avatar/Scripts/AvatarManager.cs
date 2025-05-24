@@ -9,6 +9,7 @@ namespace Moyba.Avatar
         public IAvatarCoordinate Coordinate { get; internal set; } = AvatarCoordinate.Stub;
         public IReadOnlyBoolValue IsGrounded { get; internal set; } = AvatarIsGrounded.Stub;
         public IBoolValue IsOutOfBounds { get; internal set; } = AvatarIsOutOfBounds.Stub;
+        public IReadOnlyBoolValue IsOnTarget { get; internal set; } = AvatarIsOnTarget.Stub;
         public IAvatarKinematics Kinematics { get; internal set; } = AvatarKinematics.Stub;
     }
 }

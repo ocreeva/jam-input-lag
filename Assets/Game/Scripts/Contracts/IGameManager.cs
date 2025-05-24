@@ -7,7 +7,8 @@ namespace Moyba.Game
         event ValueEventHandler<ISignalTransmitter> OnTransmitterActivated;
 
         IValue<Difficulty> Difficulty { get; }
+        IGameLevelComplete LevelComplete { get; }
         IGameSignal Signal { get; }
-        IValue<float> Timer { get; }
+        IGameTimer Timer { get; }
     }
 }

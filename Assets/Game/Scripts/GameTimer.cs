@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace Moyba.Game
 {
-    public class GameTimer : AValueTrait<GameManager, float>
+    public class GameTimer : AValueTrait<GameManager, float>, IGameTimer
     {
         private static readonly _StubGameTimer _Stub = new _StubGameTimer();
 
-        [NonSerialized] private GameConfiguration.TimerConfiguration _configuration;
+        [NonSerialized] private bool _isTiming = true;
 
-        internal static IValue<float> Stub => _Stub;
+        internal static IGameTimer Stub => _Stub;
+
+        public void Halt()
+        => _isTiming = false;
 
         private void Awake()
         {
@@ -19,9 +22,6 @@ namespace Moyba.Game
             _Stub.TransferControlTo(this);
         }
 
-        private void HandleDifficultyChanged(Difficulty _)
-        => _configuration = _manager.Configuration.Value.Timer;
-
         private void OnDestroy()
         {
             this._Assert(ReferenceEquals(_manager.Timer, this), "is stubbing a different instance.");
@@ -29,24 +29,16 @@ namespace Moyba.Game
             _Stub.TransferControlFrom(this);
         }
 
-        private void OnDisable()
-        {
-            Omnibus.Game.Difficulty.OnChanged -= this.HandleDifficultyChanged;
-        }
-
-        private void OnEnable()
-        {
-            Omnibus.Game.Difficulty.OnChanged += this.HandleDifficultyChanged;
-            this.HandleDifficultyChanged(Omnibus.Game.Difficulty.Value);
-
-            this.Value = _configuration.InitialDuration;
-        }
-
         private void Update()
         {
-            this.Value -= Time.deltaTime;
+            if (!_isTiming) return;
+
+            this.Value += Time.deltaTime;
         }
 
-        private class _StubGameTimer : AValueTraitStub<GameTimer> { }
+        private class _StubGameTimer : AValueTraitStub<GameTimer>, IGameTimer
+        {
+            public void Halt() { }
+        }
     }
 }

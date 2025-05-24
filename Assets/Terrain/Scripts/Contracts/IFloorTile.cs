@@ -5,5 +5,6 @@ namespace Moyba.Terrain
         Coordinate Coordinate { get; }
         float Height { get; }
         bool IsDangerous { get; }
+        bool IsTarget { get; }
     }
 }

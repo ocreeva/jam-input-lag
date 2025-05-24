@@ -2,6 +2,16 @@
     "name": "Moyba.UI",
     "rootNamespace": "Moyba.UI",
     "references": [
-        "GUID:580aeb5a1b69ac34ea5bd96646592dc0"
-    ]
+        "GUID:580aeb5a1b69ac34ea5bd96646592dc0",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -15,9 +15,10 @@ namespace Moyba.Game
         public event ValueEventHandler<ISignalTransmitter> OnTransmitterActivated;
 
         public IValue<Difficulty> Difficulty { get; } = new AValue<Difficulty>();
+        public IGameLevelComplete LevelComplete { get; internal set; } = GameLevelComplete.Stub;
         public IGameSignal Signal { get; internal set; } = GameSignal.Stub;
         internal IValue<float> SignalLatency { get; set; } = GameSignalLatency.Stub;
-        public IValue<float> Timer { get; internal set; } = GameTimer.Stub;
+        public IGameTimer Timer { get; internal set; } = GameTimer.Stub;
 
         internal DifficultyBased<GameConfiguration> Configuration => _configuration;
 

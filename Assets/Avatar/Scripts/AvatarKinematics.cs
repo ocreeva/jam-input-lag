@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Moyba.Contracts;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ namespace Moyba.Avatar
 
         private const string _AvatarStrafeLiteral = "Strafe";
         private static readonly int _AvatarStrafe = Animator.StringToHash(_AvatarStrafeLiteral);
+
+        private const string _AvatarVictoryLiteral = "Victory";
+        private static readonly int _AvatarVictory = Animator.StringToHash(_AvatarVictoryLiteral);
 
         private static readonly Quaternion _Right = Quaternion.Euler(0, 90, 0);
 
@@ -45,6 +49,9 @@ namespace Moyba.Avatar
 
         public Vector3 Position => this.transform.position;
 
+        public void PoseForVictory()
+        => this.StartCoroutine(Coroutine_PoseForVictory());
+
         public void TeleportTo(Vector3 position, bool shouldResetVelocity)
         {
             this.transform.position = position;
@@ -65,6 +72,28 @@ namespace Moyba.Avatar
             _rigidbody = this.GetComponent<Rigidbody>();
 
             _speed = _initialSpeed;
+        }
+
+        private IEnumerator Coroutine_PoseForVictory()
+        {
+            if (_speed != 0)
+            {
+                var speedSign = Mathf.Sign(_speed);
+                _speedInput = -2 * Mathf.RoundToInt(speedSign);
+
+                // make sure we're not starting a jump or bounce
+                var velocity = _rigidbody.linearVelocity;
+                velocity.y = 0;
+                _rigidbody.linearVelocity = velocity;
+
+                while (speedSign == Mathf.Sign(_speed)) yield return null;
+            }
+
+            _speed = 0;
+            _speedInput = 0;
+            _rigidbody.linearVelocity = Vector3.zero;
+
+            _animator.SetTrigger(_AvatarVictory);
         }
 
 #if UNITY_EDITOR
@@ -182,6 +211,7 @@ namespace Moyba.Avatar
         {
             public Vector3 Position => Vector3.zero;
 
+            public void PoseForVictory() { }
             public void TeleportTo(Vector3 position, bool shouldResetVelocity) => _CallFail(nameof(TeleportTo));
         }
     }
