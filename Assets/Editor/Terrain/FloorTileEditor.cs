@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Moyba.Terrain
@@ -17,6 +18,8 @@ namespace Moyba.Terrain
         private void OnSceneGUI()
         {
             var floorTile = (FloorTile)this.target;
+            if (EditorSceneManager.IsPreviewScene(floorTile.gameObject.scene)) return;
+
             var transform = floorTile.transform;
 
             this.Initialize();
