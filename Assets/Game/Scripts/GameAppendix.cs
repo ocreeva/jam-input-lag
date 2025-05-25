@@ -14,10 +14,13 @@ namespace Moyba.Game
         [NonSerialized] private bool _isLoadingScene;
 
         public void TransitionToNextScene()
+        => this.TransitionToScene(_nextSceneID);
+
+        public void TransitionToScene(SceneID sceneID)
         {
             if (_isLoadingScene) return;
 
-            this.StartCoroutine(Coroutine_TransitionToScene(_nextSceneID));
+            this.StartCoroutine(Coroutine_TransitionToScene(sceneID));
         }
 
         private void Awake()
