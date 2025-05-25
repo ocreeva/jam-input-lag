@@ -10,6 +10,8 @@ namespace Moyba.Game.UI
 
         public void Play()
         {
+            Omnibus.SFX.Volume.Fade();
+
             Omnibus.UI.Show(Moyba.UI.Overlay.ScreenFade);
 
             _manager.Appendix.TransitionToScene(_sceneID);

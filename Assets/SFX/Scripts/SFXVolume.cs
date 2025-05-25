@@ -1,10 +1,11 @@
+using System.Collections;
 using Moyba.Contracts;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Moyba.SFX
 {
-    public class SFXVolume : AValueTrait<SFXManager, float>, IValue<float>
+    public class SFXVolume : AValueTrait<SFXManager, float>, ISFXVolume
     {
         private static string _VolumeSetting = $"{nameof(SFXVolume)}_Value";
 
@@ -17,14 +18,32 @@ namespace Moyba.SFX
         [SerializeField, Range(0f, 1f)] private float _default = 0.75f;
         [SerializeField, Range(-80, 20)] private float _minDb = -30f;
         [SerializeField, Range(-80, 20)] private float _maxDb = 10f;
+        [SerializeField, Range(0.1f, 10f)] private float _fadeTime = 2f;
 
-        internal static IValue<float> Stub => _Stub;
+        internal static ISFXVolume Stub => _Stub;
+
+        public void Fade()
+        => this.StartCoroutine(Coroutine_Fade());
 
         private void Awake()
         {
             this._Assert(ReferenceEquals(_manager.Volume, _Stub), "is replacing a non-stub instance.");
             _manager.Volume = this;
             _Stub.TransferControlTo(this);
+        }
+
+        private IEnumerator Coroutine_Fade()
+        {
+            _audioMixer.GetFloat(_VolumeSetting, out var currentDb);
+            var rate = (_maxDb - _minDb) / _fadeTime;
+
+            while (currentDb > _minDb)
+            {
+                yield return null;
+
+                currentDb = Mathf.Clamp(currentDb - Time.deltaTime * rate, _minDb, _maxDb);
+                _audioMixer.SetFloat(_VolumeSetting, currentDb);
+            }
         }
 
         private void HandleValueChanged(float value)
@@ -60,6 +79,9 @@ namespace Moyba.SFX
         private void Start()
         => this.HandleValueChanged(this.Value);
 
-        private class _StubSFXVolume : AValueTraitStub<SFXVolume>, IValue<float> { }
+        private class _StubSFXVolume : AValueTraitStub<SFXVolume>, ISFXVolume
+        {
+            public void Fade() { }
+        }
     }
 }

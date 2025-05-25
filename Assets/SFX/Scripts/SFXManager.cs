@@ -12,7 +12,7 @@ namespace Moyba.SFX
 
         public IBoolValue MusicIsMuted { get; internal set; } = SFX.MusicIsMuted.Stub;
         public IBoolValue SoundIsMuted { get; internal set; } = SFX.SoundIsMuted.Stub;
-        public IValue<float> Volume { get; internal set; } = SFXVolume.Stub;
+        public ISFXVolume Volume { get; internal set; } = SFXVolume.Stub;
 
         public void Play(SoundClip soundClip)
         {

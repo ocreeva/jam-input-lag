@@ -7,6 +7,8 @@ namespace Moyba.UI.Overlays
     {
         public void Transition()
         {
+            Omnibus.SFX.Volume.Fade();
+
             Omnibus.UI.Show(Overlay.ScreenFade);
 
             Omnibus.UI.Hide(Overlay.LevelComplete);
